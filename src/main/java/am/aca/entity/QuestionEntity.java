@@ -33,4 +33,6 @@ public class QuestionEntity {
     @OneToMany(mappedBy = "questionEntity", orphanRemoval = true)
     private List<AnswerEntity> answerEntityList;
 
+    @OneToOne(mappedBy = "questionEntity", orphanRemoval = true)
+    private ClarificationEntity clarificationEntity;
 }

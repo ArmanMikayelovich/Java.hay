@@ -16,7 +16,7 @@ public class AnswerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "answer_id")
-    private int anwerId;
+    private int answerId;
 
     @Column(name = "answer_text", nullable = false, length = 500)
     private String answerText;
