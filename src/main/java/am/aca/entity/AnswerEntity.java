@@ -1,18 +1,26 @@
 package am.aca.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "answers",
+@Table(name = "answers", schema = "oracle_exams",
         indexes = {
                 @Index(name = "answers_answer_id_uindex",
                         unique = true,
                         columnList = "answer_id")
         })
 @Data
+@NoArgsConstructor
 public class AnswerEntity {
+    public AnswerEntity(QuestionEntity questionEntity,String answerText,String answerCode,boolean accuracy) {
+        setQuestionEntity(questionEntity);
+        setAnswerText(answerText);
+        setAnswerCode(answerCode);
+        setAccuracy(accuracy);
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "answer_id")

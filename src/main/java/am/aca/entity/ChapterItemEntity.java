@@ -1,17 +1,26 @@
 package am.aca.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "chapter_items", indexes = {
-        @Index(name = "chapter_items_item_id_uindex",
-                unique = true,
-                columnList = "item_id")
-})
+@Table(name = "chapter_items", schema = "oracle_exams",
+        indexes = {
+                @Index(name = "chapter_items_item_id_uindex",
+                        unique = true,
+                        columnList = "item_id")
+        })
 @Data
-public class ChapterItem {
+@NoArgsConstructor
+public class ChapterItemEntity {
+
+    public ChapterItemEntity(ChapterEntity chapterEntity, String headline) {
+        setChapterEntity(chapterEntity);
+        setHeadline(headline);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id", nullable = false)

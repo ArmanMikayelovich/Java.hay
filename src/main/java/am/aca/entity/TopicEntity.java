@@ -1,19 +1,25 @@
 package am.aca.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "topics", indexes = {
-        @Index(name = "topics_topic_id_uindex",
-                unique = true,
-                columnList = "topic_id")
+@Table(name = "topics", schema = "oracle_exams",
+        indexes = {
+                @Index(name = "topics_topic_id_uindex",
+                        unique = true,
+                        columnList = "topic_id")
 
-})
+        })
 @Data
+@NoArgsConstructor
 public class TopicEntity {
+    public TopicEntity(String topicName) {
+        setTopicName(topicName);
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +32,6 @@ public class TopicEntity {
 
     @OneToMany(mappedBy = "topicEntity", cascade = CascadeType.ALL)
     private List<ChapterEntity> chapterEntityList;
+
+
 }

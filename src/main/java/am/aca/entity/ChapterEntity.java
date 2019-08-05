@@ -1,19 +1,27 @@
 package am.aca.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "chapters", indexes = {
-        @Index(name = "chapters_chapter_id_uindex",
-                unique = true,
-                columnList = "chapter_id")
+@Table(name = "chapters", schema = "oracle_exams",
+        indexes = {
+                @Index(name = "chapters_chapter_id_uindex",
+                        unique = true,
+                        columnList = "chapter_id")
 
-})
+        })
 @Data
+@NoArgsConstructor
 public class ChapterEntity {
+    public ChapterEntity(TopicEntity topicEntity, String chapterName) {
+        setTopicEntity(topicEntity);
+        setChapterName(chapterName);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "chapter_id", nullable = false)
@@ -27,7 +35,7 @@ public class ChapterEntity {
     private TopicEntity topicEntity;
 
     @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true)
-    private List<ChapterItem> chapterItemList;
+    private List<ChapterItemEntity> chapterItemList;
 
     @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true)
     private List<QuestionEntity> questionEntityList;

@@ -1,20 +1,29 @@
 package am.aca.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "questions", indexes = {
-        @Index(name = "questions_chapter_id_index",
-                columnList = "chapter_id"),
-        @Index(name = "questions_question_id_uindex",
-                unique = true,
-                columnList = "question_id")
-})
+@Table(name = "questions", schema = "oracle_exams",
+        indexes = {
+                @Index(name = "questions_chapter_id_index",
+                        columnList = "chapter_id"),
+                @Index(name = "questions_question_id_uindex",
+                        unique = true,
+                        columnList = "question_id")
+        })
 @Data
-public class QuestionEntity {
+@NoArgsConstructor
+public class QuestionEntity implements Serializable {
+    public QuestionEntity(ChapterEntity chapterEntity, String questionText) {
+        setChapterEntity(chapterEntity);
+        setQuestionText(questionText);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
