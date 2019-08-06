@@ -16,8 +16,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ChapterItemEntity {
 
-    public ChapterItemEntity(ChapterEntity chapterEntity, String headline) {
-        setChapterEntity(chapterEntity);
+    public ChapterItemEntity(String headline) {
         setHeadline(headline);
     }
 

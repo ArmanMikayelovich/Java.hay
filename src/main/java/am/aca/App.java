@@ -2,6 +2,7 @@ package am.aca;
 
 import am.aca.entity.*;
 import am.aca.repository.*;
+import am.aca.service.TopicSerice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -25,6 +26,7 @@ public class App implements CommandLineRunner {
     ClarificationRepository clarificaionRepository;
     @Autowired
     QuestionRepository questionRepository;
+    final TopicSerice topicSerice;
 
 
     TopicEntity ocaTopic;
@@ -34,6 +36,10 @@ public class App implements CommandLineRunner {
     AnswerEntity answerEntity;
     ClarificationEntity clarificationEntity;
 
+    public App(TopicSerice topicSerice) {
+        this.topicSerice = topicSerice;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
     }
@@ -41,12 +47,12 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String[] args) {
         transactionRunner();
-        readFields();
+        topicSerice.deleteChapter(ocaTopic, firstChapter);
     }
 
     @Transactional(readOnly = true)
     public void readFields() {
-        System.out.println(topicRepository);
+        System.out.println(ocaTopic);
     }
     @Transactional
     public void transactionRunner() {
@@ -56,30 +62,33 @@ public class App implements CommandLineRunner {
         }
 
         ocaTopic = new TopicEntity("OCA");
-        topicRepository.save(ocaTopic);
+         firstChapter = new ChapterEntity("namo");
+        topicSerice.addChapter(ocaTopic, firstChapter);
+//        firstChapter = new ChapterEntity(ocaTopic, "first chapter");
+//
+////        firstChapter.setTopicEntity(ocaTopic);
+//        chapterRepository.save(firstChapter);
+//
+//        chapterItem = new ChapterItemEntity(firstChapter,
+//                "Headline of first chapter's first item...");
+//        chapterItemRepository.save(chapterItem);
+//
+//        questionEntity = new QuestionEntity(firstChapter, "how are you, my brother?)");
+//
+//        questionEntity.setQuestionCode("lot of code");
+//        questionRepository.save(questionEntity);
+//
+//        answerEntity = new AnswerEntity(
+//                questionEntity, "Great, thank you!", "A", true);
+//        answerRepository.save(answerEntity);
+//
+//        clarificationEntity = new ClarificationEntity(questionEntity, "You are TrueMAN!)");
+//        clarificaionRepository.save(clarificationEntity);
+//
+//        questionEntity = questionRepository.findById(questionEntity.getQuestionId()).get();
+//        ocaTopic.getChapterEntityList().add(firstChapter);
+//        ocaTopic = topicRepository.save(ocaTopic);
 
-        firstChapter = new ChapterEntity(ocaTopic, "first chapter");
-
-//        firstChapter.setTopicEntity(ocaTopic);
-        chapterRepository.save(firstChapter);
-
-        chapterItem = new ChapterItemEntity(firstChapter,
-                "Headline of first chapter's first item...");
-        chapterItemRepository.save(chapterItem);
-
-        questionEntity = new QuestionEntity(firstChapter, "how are you, my brother?)");
-
-        questionEntity.setQuestionCode("lot of code");
-        questionRepository.save(questionEntity);
-
-        answerEntity = new AnswerEntity(
-                questionEntity, "Great, thank you!", "A", true);
-        answerRepository.save(answerEntity);
-
-        clarificationEntity = new ClarificationEntity(questionEntity, "You are TrueMAN!)");
-        clarificaionRepository.save(clarificationEntity);
-
-        questionEntity = questionRepository.findById(questionEntity.getQuestionId()).get();
     }
 
 

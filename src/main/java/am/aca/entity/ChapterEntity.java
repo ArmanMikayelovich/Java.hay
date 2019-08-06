@@ -18,8 +18,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class ChapterEntity {
-    public ChapterEntity(TopicEntity topicEntity, String chapterName) {
-        setTopicEntity(topicEntity);
+    public ChapterEntity( String chapterName) {
         setChapterName(chapterName);
     }
 
@@ -35,9 +34,9 @@ public class ChapterEntity {
     @JoinColumn(name = "topic_id", referencedColumnName = "topic_id", nullable = false)
     private TopicEntity topicEntity;
 
-    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true)
+    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true,cascade = CascadeType.REMOVE)
     private List<ChapterItemEntity> chapterItemList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true,fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true,fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
     private List<QuestionEntity> questionEntityList = new ArrayList<>();
 }

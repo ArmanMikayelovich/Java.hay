@@ -40,9 +40,9 @@ public class QuestionEntity implements Serializable {
     @JoinColumn(name = "chapter_id", referencedColumnName = "chapter_id")
     private ChapterEntity chapterEntity;
 
-    @OneToMany(mappedBy = "questionEntity", orphanRemoval = true,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "questionEntity", orphanRemoval = true,fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
     private List<AnswerEntity> answerEntityList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "questionEntity", orphanRemoval = true)
+    @OneToOne(mappedBy = "questionEntity", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private ClarificationEntity clarificationEntity;
 }
