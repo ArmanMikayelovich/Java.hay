@@ -23,7 +23,7 @@ public class AnswerEntity {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "answer_id")
+    @Column(name = "answer_id",updatable = false)
     private int answerId;
 
     @Column(name = "answer_text", nullable = false, length = 500)
@@ -35,7 +35,7 @@ public class AnswerEntity {
     @Column(name = "accuracy", nullable = false)
     private boolean accuracy = false;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id", referencedColumnName = "question_id", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private QuestionEntity questionEntity;
 }

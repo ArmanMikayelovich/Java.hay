@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +24,7 @@ public class TopicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "topic_id")
+    @Column(name = "topic_id",updatable = false)
     private int topicID;
 
 
@@ -31,7 +32,7 @@ public class TopicEntity {
     private String topicName;
 
     @OneToMany(mappedBy = "topicEntity", cascade = CascadeType.ALL)
-    private List<ChapterEntity> chapterEntityList;
+    private List<ChapterEntity> chapterEntityList = new ArrayList<>();
 
 
 }

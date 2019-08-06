@@ -22,7 +22,7 @@ public class ClarificationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "clarification_id", nullable = false, unique = true)
+    @Column(name = "clarification_id", nullable = false, unique = true,updatable = false)
     private int clarification_id;
 
     @Column(name = "clarification_text", length = 1000, nullable = false)

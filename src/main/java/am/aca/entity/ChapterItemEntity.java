@@ -23,7 +23,7 @@ public class ChapterItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id", nullable = false)
+    @Column(name = "item_id", nullable = false,updatable = false)
     private int itemId;
 
     @Column(name = "headline", length = 1000, nullable = false)
