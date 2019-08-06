@@ -1,5 +1,6 @@
 package am.aca.entity;
 
+import am.aca.dto.TopicDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
