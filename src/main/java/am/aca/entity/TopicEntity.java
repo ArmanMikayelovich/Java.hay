@@ -26,7 +26,7 @@ public class TopicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "topic_id",updatable = false)
-    private int topicID;
+    private int topicId;
 
 
     @Column(name = "topic_name", length = 256, nullable = false)

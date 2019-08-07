@@ -46,8 +46,8 @@ public class App implements CommandLineRunner {
 
     @Override
     public void run(String[] args) {
-        transactionRunner();
-        topicSerice.deleteChapter(ocaTopic, firstChapter);
+//        transactionRunner();
+//        topicSerice.deleteChapter(ocaTopic, firstChapter);
     }
 
     @Transactional(readOnly = true)

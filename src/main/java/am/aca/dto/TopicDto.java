@@ -1,10 +1,7 @@
 package am.aca.dto;
 
-import am.aca.entity.ChapterEntity;
 import am.aca.entity.TopicEntity;
 import lombok.*;
-
-import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -16,7 +13,7 @@ public class TopicDto {
     private String topicName;
 
     public TopicDto(TopicEntity topic) {
-        setTopicId(topic.getTopicID());
+        setTopicId(topic.getTopicId());
         setTopicName(topic.getTopicName());
     }
 }
