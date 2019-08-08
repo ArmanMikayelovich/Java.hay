@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Show chapters and manage them</title>
+</head>
+<body>
+<table>
+
+    <tr th:each="chapter : ${chapterList}">
+        <td th:utext = "'ID - ' + ${chapter.getChapterId()}">ID</td>
+        <td th:utext = "' | Name - ' + ${chapter.getChapterName()}">ID</td>
+        <td th:utext = "' | Topic name - ' + ${chapter.getTopicId()}">ID</td>
+    </tr>
+    <br>
+    <h2>adding chapters</h2>
+
+
+
+</table>
+</body>
+</html>

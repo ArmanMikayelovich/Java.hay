@@ -1,5 +1,6 @@
 package am.aca.service;
 
+import am.aca.dto.ChapterDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.ChapterItemEntity;
 import am.aca.entity.QuestionEntity;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ChapterServiceJpaImpl implements ChapterService {
@@ -73,7 +75,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
             itemService.delete(item);
         }
         chapter.setChapterItemList(new ArrayList<>());
-       return chapterRepo.save(chapter);
+        return chapterRepo.save(chapter);
     }
 
     @Override
@@ -101,4 +103,15 @@ public class ChapterServiceJpaImpl implements ChapterService {
         chapter.setQuestionEntityList(new ArrayList<>());
         return chapterRepo.save(chapter);
     }
+
+    @Override
+    public ChapterDto toDto(ChapterEntity chapter) {
+        return new ChapterDto(chapter);
+    }
+
+    @Override
+    public List<ChapterDto> toDto(List<ChapterEntity> chapterList) {
+        return chapterList.stream().map(ChapterDto::new).collect(Collectors.toList());
+    }
+
 }

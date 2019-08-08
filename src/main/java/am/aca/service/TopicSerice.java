@@ -1,5 +1,6 @@
 package am.aca.service;
 
+import am.aca.dto.TopicDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.TopicEntity;
 
@@ -26,4 +27,8 @@ public interface TopicSerice {
     TopicEntity deleteAllChapters(TopicEntity topicEntity);
 
     boolean deleteAllTopics();
+
+    TopicDto toDto(TopicEntity topic);
+
+    List<TopicDto> toDto(List<TopicEntity> topicList);
 }

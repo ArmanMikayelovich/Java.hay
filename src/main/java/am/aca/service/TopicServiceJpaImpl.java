@@ -1,5 +1,6 @@
 package am.aca.service;
 
+import am.aca.dto.TopicDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.TopicEntity;
 import am.aca.repository.TopicRepository;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TopicServiceJpaImpl implements TopicSerice {
@@ -87,5 +89,15 @@ public class TopicServiceJpaImpl implements TopicSerice {
         }
         topicRepo.deleteAll();
         return true;
+    }
+
+    @Override
+    public TopicDto toDto(TopicEntity topic) {
+        return new TopicDto(topic);
+    }
+
+    @Override
+    public List<TopicDto> toDto(List<TopicEntity> topicList) {
+        return topicList.stream().map(TopicDto::new).collect(Collectors.toList());
     }
 }

@@ -1,5 +1,6 @@
 package am.aca.service;
 
+import am.aca.dto.ChapterDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.ChapterItemEntity;
 import am.aca.entity.QuestionEntity;
@@ -30,5 +31,8 @@ public interface ChapterService {
 
     ChapterEntity deleteAllQuestions(ChapterEntity chapter);
 
+    ChapterDto toDto(ChapterEntity chapter);
+
+    List<ChapterDto> toDto(List<ChapterEntity> chapterList);
 
 }

@@ -11,10 +11,12 @@
 <body>
 <table>
     <tr th:each="topic : ${topicList}">
-        <td th:utext="'topicId: ' + ${topic.getTopicId()}">...</td>
-        <td th:utext="'  -   ' + ${topic.getTopicName()}">...</td>
+        <td th:utext="'topicId: ' + ${topic.getTopicId()}">topic id  </td>
+        <td th:utext="'  -   ' + ${topic.getTopicName()}">topic name  </td>
+        <td th:utext = "'  || chapter's count : ' + ${topic.getChapterEntityList().size()}  "> chapter's count</td>
     </tr>
 </table>
+<h2>Creating topic.</h2>
 <form method="POST">
     <legend>Create new topic.</legend>
     Topic name : <br>

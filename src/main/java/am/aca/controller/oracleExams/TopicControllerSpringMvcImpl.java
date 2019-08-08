@@ -20,7 +20,7 @@ public class TopicControllerSpringMvcImpl implements TopicController {
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView getAllTopics() {
         ModelAndView model = new ModelAndView("topics");
-        model.addObject("topicList", topicSerice.findAll());
+        model.addObject("topicList", topicSerice.findAll().stream());
         return model;
     }
 
