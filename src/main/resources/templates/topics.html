@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<script src="jquery-3.4.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script type="text/javascript" th:src="@{/js/topicRequests.js}"></script>
+
 <head>
     <meta charset="UTF-8">
     <title>Show topics and insert them</title>
@@ -9,15 +12,24 @@
 <table>
     <tr th:each="topic : ${topicList}">
         <td th:utext="'topicId: ' + ${topic.getTopicId()}">...</td>
-        <td th:utext="'topic Name: ' + ${topic.getTopicName()}">...</td>
+        <td th:utext="'  -   ' + ${topic.getTopicName()}">...</td>
     </tr>
-
-    <form method="POST">
-        <input name="topicName" type="text" >
-        <input type="button" value="Send" onclick="">
-    </form>
-
-
 </table>
+<form method="POST">
+    <legend>Create new topic.</legend>
+    Topic name : <br>
+    <input name="topicName" type="text">
+    <input type="button" value="Send">
+</form>
+<br>
+<h2>Deleting topic.</h2>
+<form>
+    <legend>Delete topic.</legend>
+    Topic id : <br>
+    <input name="topic id" id="deleteTopicId" type="number">
+    <input type="button" value="Delete" onclick="deleteTopic()">
+</form>
+
+
 </body>
 </html>

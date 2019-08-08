@@ -24,6 +24,22 @@ public class TopicServiceJpaImpl implements TopicSerice {
     }
 
     @Override
+    public boolean deleteById(Integer id) {
+        Optional<TopicEntity> optional = topicRepo.findById(id);
+        if (optional.isPresent()) {
+            topicRepo.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean delete(TopicEntity topic) {
+        topicRepo.delete(topic);
+        return true;
+    }
+
+    @Override
     public Optional<TopicEntity> find(Integer id) {
         return topicRepo.findById(id);
     }

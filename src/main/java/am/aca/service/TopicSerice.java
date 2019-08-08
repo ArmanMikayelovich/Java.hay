@@ -9,6 +9,10 @@ import java.util.Optional;
 public interface TopicSerice {
     TopicEntity save(TopicEntity topicEntity);
 
+    boolean deleteById(Integer id);
+
+    boolean delete(TopicEntity topic);
+
     Optional<TopicEntity> find(Integer id);
 
     TopicEntity changeName(TopicEntity topic, String name);
