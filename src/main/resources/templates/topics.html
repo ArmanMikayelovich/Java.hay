@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="jquery-3.4.1.min.js"></script>
 <head>
     <meta charset="UTF-8">
     <title>Show topics and insert them</title>
@@ -8,8 +9,15 @@
 <table>
     <tr th:each="topic : ${topicList}">
         <td th:utext="'topicId: ' + ${topic.getTopicId()}">...</td>
-
+        <td th:utext="'topic Name: ' + ${topic.getTopicName()}">...</td>
     </tr>
+
+    <form method="POST">
+        <input name="topicName" type="text" >
+        <input type="button" value="Send" onclick="">
+    </form>
+
+
 </table>
 </body>
 </html>
