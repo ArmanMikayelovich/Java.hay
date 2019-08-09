@@ -1,5 +1,6 @@
 package am.aca.service;
 
+import am.aca.dto.ChapterItemDto;
 import am.aca.entity.ChapterItemEntity;
 
 import java.util.List;
@@ -16,5 +17,6 @@ public interface ChapterItemService {
 
     boolean delete(ChapterItemEntity itemEntity);
 
+    List<ChapterItemDto> toDto(List<ChapterItemEntity> itemEntityList);
 
 }

@@ -3,11 +3,14 @@ package am.aca.controller.oracleExams;
 import am.aca.dto.TopicDto;
 import am.aca.entity.TopicEntity;
 import am.aca.service.TopicSerice;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.stream.Collectors;
+
+@RestController
 @RequestMapping(value = "oracle-exams/topics")
 public class TopicControllerSpringMvcImpl implements TopicController {
     private final TopicSerice topicSerice;
@@ -17,26 +20,24 @@ public class TopicControllerSpringMvcImpl implements TopicController {
     }
 
     @Override
-    @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView getAllTopics() {
-        ModelAndView model = new ModelAndView("topics");
-        model.addObject("topicList", topicSerice.findAll().stream());
-        return model;
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public Object getAllTopics() {
+        return topicSerice.findAll().stream().map(TopicDto::new).collect(Collectors.toList());
     }
 
     @Override
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView postTopic(@RequestBody TopicDto topicDto) {
+    public Object postTopic(@RequestBody TopicDto topicDto) {
         if (topicDto.getTopicName() != null && !topicDto.getTopicName().equals("")) {
             topicSerice.save(new TopicEntity(topicDto.getTopicName()));
         }
-
         return getAllTopics();
     }
 
     @Override
-    @RequestMapping(value = "/{topicId}", method = RequestMethod.DELETE)
-    public ModelAndView deleteTopic(@PathVariable("topicId") Integer topicId) {
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    public Object deleteTopic(@RequestBody TopicDto topic) {
+        int topicId = topic.getTopicId();
         if (topicId >= 0) {
             topicSerice.deleteById(topicId);
         }

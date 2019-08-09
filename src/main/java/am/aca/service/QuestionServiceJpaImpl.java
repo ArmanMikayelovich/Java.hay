@@ -1,5 +1,6 @@
 package am.aca.service;
 
+import am.aca.dto.QuestionDto;
 import am.aca.entity.AnswerEntity;
 import am.aca.entity.ClarificationEntity;
 import am.aca.entity.QuestionEntity;
@@ -7,6 +8,10 @@ import am.aca.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class QuestionServiceJpaImpl implements QuestionService {
     private final QuestionRepository questionRepo;
@@ -24,6 +29,11 @@ public class QuestionServiceJpaImpl implements QuestionService {
     public boolean delete(QuestionEntity question) {
         questionRepo.delete(question);
         return true;
+    }
+
+    @Override
+    public Optional<QuestionEntity> findById(int id) {
+        return questionRepo.findById(id);
     }
 
     @Override
@@ -75,5 +85,10 @@ public class QuestionServiceJpaImpl implements QuestionService {
         clarification.setQuestionEntity(question);
         clarificationService.save(clarification);
         return questionRepo.save(question);
+    }
+
+    @Override
+    public List<QuestionDto> toDto(List<QuestionEntity> questionEntityList) {
+        return questionEntityList.stream().map(QuestionDto::new).collect(Collectors.toList());
     }
 }

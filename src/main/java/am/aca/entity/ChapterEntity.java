@@ -1,5 +1,6 @@
 package am.aca.entity;
 
+import am.aca.dto.ChapterDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,10 @@ import java.util.List;
 public class ChapterEntity {
     public ChapterEntity( String chapterName) {
         setChapterName(chapterName);
+    }
+
+    public ChapterEntity(ChapterDto chapter){
+        setChapterName(chapter.getChapterName());
     }
 
     @Id

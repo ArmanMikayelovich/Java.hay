@@ -1,5 +1,6 @@
 package am.aca.entity;
 
+import am.aca.dto.AnswerDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,12 @@ public class AnswerEntity {
         setAnswerText(answerText);
         setAnswerCode(answerCode);
         setAccuracy(accuracy);
+    }
+
+    public AnswerEntity(AnswerDto answer) {
+        setAnswerCode(answer.getCode());
+        setAnswerText(answer.getText());
+        setAccuracy(answer.isAccuracy());
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

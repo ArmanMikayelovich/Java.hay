@@ -1,5 +1,6 @@
 package am.aca.entity;
 
+import am.aca.dto.ChapterItemDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,10 @@ public class ChapterItemEntity {
 
     public ChapterItemEntity(String headline) {
         setHeadline(headline);
+    }
+
+    public ChapterItemEntity(ChapterItemDto itemDto) {
+        setHeadline(itemDto.getHeadline());
     }
 
     @Id

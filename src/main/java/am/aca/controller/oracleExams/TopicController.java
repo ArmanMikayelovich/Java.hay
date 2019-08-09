@@ -7,6 +7,6 @@ public interface TopicController {
 
     public Object postTopic(TopicDto topicDto);
 
-    public Object deleteTopic(Integer topicId);
+    public Object deleteTopic(TopicDto topic);
 
 }

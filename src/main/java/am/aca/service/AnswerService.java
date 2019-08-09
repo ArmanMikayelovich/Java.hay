@@ -1,5 +1,6 @@
 package am.aca.service;
 
+import am.aca.dto.AnswerDto;
 import am.aca.entity.AnswerEntity;
 
 import java.util.List;
@@ -23,6 +24,5 @@ public interface AnswerService {
 
     AnswerEntity changeAccuracy(AnswerEntity answer, boolean accuracy);
 
-
-
+    List<AnswerDto> toDto(List<AnswerEntity> answerEntityList);
 }

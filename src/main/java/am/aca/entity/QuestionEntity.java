@@ -1,5 +1,6 @@
 package am.aca.entity;
 
+import am.aca.dto.QuestionDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -23,6 +24,11 @@ public class QuestionEntity implements Serializable {
     public QuestionEntity(ChapterEntity chapterEntity, String questionText) {
         setChapterEntity(chapterEntity);
         setQuestionText(questionText);
+    }
+
+    public QuestionEntity(QuestionDto questionDto) {
+        setQuestionText(questionDto.getQuestionText());
+        setQuestionCode(questionDto.getQuestionCode());
     }
 
     @Id

@@ -1,11 +1,13 @@
 package am.aca.service;
 
+import am.aca.dto.AnswerDto;
 import am.aca.entity.AnswerEntity;
 import am.aca.repository.AnswerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AnswerServiceJpaImpl implements AnswerService {
@@ -58,5 +60,10 @@ public class AnswerServiceJpaImpl implements AnswerService {
     public AnswerEntity changeAccuracy(AnswerEntity answer, boolean accuracy) {
         answer.setAccuracy(accuracy);
         return answerRepo.save(answer);
+    }
+
+    @Override
+    public List<AnswerDto> toDto(List<AnswerEntity> answerEntityList) {
+        return answerEntityList.stream().map(AnswerDto::new).collect(Collectors.toList());
     }
 }

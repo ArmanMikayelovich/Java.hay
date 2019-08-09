@@ -1,11 +1,17 @@
 package am.aca.service;
 
+import am.aca.dto.QuestionDto;
 import am.aca.entity.AnswerEntity;
 import am.aca.entity.ClarificationEntity;
 import am.aca.entity.QuestionEntity;
 
+import java.util.List;
+import java.util.Optional;
+
 public interface QuestionService {
     boolean delete(QuestionEntity question);
+
+    Optional<QuestionEntity> findById(int id);
 
     QuestionEntity save(QuestionEntity question);
 
@@ -27,6 +33,7 @@ public interface QuestionService {
      */
     QuestionEntity changeClarification(QuestionEntity question, ClarificationEntity clarification);
 
+    List<QuestionDto> toDto(List<QuestionEntity> questionEntityList);
 
 
 
