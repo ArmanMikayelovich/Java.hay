@@ -3,7 +3,6 @@ package am.aca.entity;
 import am.aca.dto.ChapterDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -67,7 +66,7 @@ public class ChapterEntity {
         return "ChapterEntity{" +
                 "chapterId=" + chapterId +
                 ", chapterName='" + chapterName + '\'' +
-                ", topicId=" + topicEntity.getTopicId() +
+                ", topicId=" + (topicEntity == null ? "0" : topicEntity.getTopicId()) +
                 ", chapterItemList.size=" + chapterItemList.size() +
                 ", questionEntityList.size=" + questionEntityList.size() +
                 '}';

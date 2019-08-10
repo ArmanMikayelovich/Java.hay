@@ -2,7 +2,7 @@ package am.aca;
 
 import am.aca.entity.*;
 import am.aca.repository.*;
-import am.aca.service.TopicSerice;
+import am.aca.service.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -26,7 +26,7 @@ public class App implements CommandLineRunner {
     ClarificationRepository clarificaionRepository;
     @Autowired
     QuestionRepository questionRepository;
-    final TopicSerice topicSerice;
+    final TopicService topicService;
 
 
     TopicEntity ocaTopic;
@@ -36,8 +36,8 @@ public class App implements CommandLineRunner {
     AnswerEntity answerEntity;
     ClarificationEntity clarificationEntity;
 
-    public App(TopicSerice topicSerice) {
-        this.topicSerice = topicSerice;
+    public App(TopicService topicService) {
+        this.topicService = topicService;
     }
 
     public static void main(String[] args) {

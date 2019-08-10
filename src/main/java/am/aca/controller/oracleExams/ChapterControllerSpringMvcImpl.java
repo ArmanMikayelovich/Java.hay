@@ -5,7 +5,7 @@ import am.aca.dto.TopicDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.TopicEntity;
 import am.aca.service.ChapterService;
-import am.aca.service.TopicSerice;
+import am.aca.service.TopicService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,11 +18,11 @@ import java.util.Optional;
 @RequestMapping(value = "oracle-exams/chapters")
 public class ChapterControllerSpringMvcImpl implements ChapterController {
     private final ChapterService chapterService;
-    private final TopicSerice topicSerice;
+    private final TopicService topicService;
 
-    public ChapterControllerSpringMvcImpl(ChapterService chapterService, TopicSerice topicSerice) {
+    public ChapterControllerSpringMvcImpl(ChapterService chapterService, TopicService topicService) {
         this.chapterService = chapterService;
-        this.topicSerice = topicSerice;
+        this.topicService = topicService;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     @RequestMapping(value = "/of-topic/{topicId}",method = RequestMethod.GET)
     public Object getAllChaptersOfTopic(@PathVariable("topicId") Integer topicId,HttpServletResponse response) {
         if (topicId >= 0) {
-            Optional<TopicEntity> optionalTopic = topicSerice.find(topicId);
+            Optional<TopicEntity> optionalTopic = topicService.find(topicId);
             if (optionalTopic.isPresent()) {
                 return chapterService.toDto(optionalTopic.get().getChapterEntityList());
             }
@@ -63,9 +63,9 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     @RequestMapping(value = "/add",method = RequestMethod.POST)
     public Object createChapterOfTopic(@RequestBody ChapterDto chapter, HttpServletResponse response) {
         if (chapter.getTopicId() >= 0 && !chapter.getChapterName().equals("")) {
-            TopicEntity topic = topicSerice.find(chapter.getTopicId()).get();
+            TopicEntity topic = topicService.find(chapter.getTopicId()).get();
             ChapterEntity chapterEntity = new ChapterEntity(chapter);
-            topicSerice.addChapter(topic, chapterEntity);
+            topicService.addChapter(topic, chapterEntity);
             return chapterService.toDto(topic.getChapterEntityList());
         }
          response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -77,7 +77,7 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     public Object deleteChapterById(@RequestBody ChapterDto chapter,HttpServletResponse response) {
         int chapterId = chapter.getChapterId();
         ChapterEntity chapterEntity = chapterService.findById(chapterId).get();
-        topicSerice.deleteChapter(chapterEntity.getTopicEntity(), chapterEntity);
+        topicService.deleteChapter(chapterEntity.getTopicEntity(), chapterEntity);
         return new ChapterDto(chapterEntity) + "deleted";
     }
 
@@ -86,8 +86,8 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     public Object deleteAllChaptersOfTopic(@RequestBody TopicDto topic,HttpServletResponse response) {
         int topicId = topic.getTopicId();
         if (topicId >= 0) {
-            TopicEntity topicEntity = topicSerice.find(topicId).get();
-            topicSerice.deleteAllChapters(topicEntity);
+            TopicEntity topicEntity = topicService.find(topicId).get();
+            topicService.deleteAllChapters(topicEntity);
             return "all chapter's of " + topicEntity.getTopicName() + " has been deleted";
         }
         response.setStatus(HttpStatus.BAD_REQUEST.value());

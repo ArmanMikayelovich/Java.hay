@@ -7,14 +7,14 @@ import am.aca.entity.TopicEntity;
 import java.util.List;
 import java.util.Optional;
 
-public interface TopicSerice {
+public interface TopicService {
     TopicEntity save(TopicEntity topicEntity);
 
     boolean deleteById(Integer id);
 
     boolean delete(TopicEntity topic);
 
-    Optional<TopicEntity> find(Integer id);
+    Optional<TopicEntity> find(int id);
 
     TopicEntity changeName(TopicEntity topic, String name);
 

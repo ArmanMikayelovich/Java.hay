@@ -9,11 +9,12 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class TopicServiceJpaImpl implements TopicSerice {
+public class TopicServiceJpaImpl implements TopicService {
     private static final Logger log = LogManager.getLogger(TopicServiceJpaImpl.class);
 
     private final TopicRepository topicRepo;
@@ -39,6 +40,11 @@ public class TopicServiceJpaImpl implements TopicSerice {
     @Override
     public boolean deleteById(Integer id) {
         log.debug("deleting topic by id");
+        if (Objects.requireNonNull(id) < 1) {
+            IllegalArgumentException exception = new IllegalArgumentException("Topic id must be > 0!");
+            log.warn(exception);
+            throw exception;
+        }
         Optional<TopicEntity> optional = topicRepo.findById(id);
 
         if (optional.isPresent()) {
@@ -54,13 +60,23 @@ public class TopicServiceJpaImpl implements TopicSerice {
     @Override
     public boolean delete(TopicEntity topic) {
         log.debug("deleting topic" + topic);
+        if (Objects.requireNonNull(topic).getTopicId() < 1) {
+            IllegalArgumentException exception = new IllegalArgumentException("Topic id must be > 0");
+            log.warn(exception);
+            throw exception;
+        }
         topicRepo.delete(topic);
         log.debug(topic + " successfully deleted");
         return true;
     }
 
     @Override
-    public Optional<TopicEntity> find(Integer id) {
+    public Optional<TopicEntity> find(int id) {
+        if (id < 1) {
+            IllegalArgumentException exception = new IllegalArgumentException("id must be > 0, id - " + id);
+            log.warn(exception);
+            throw exception;
+        }
         log.debug("searching topic by id " + id);
         Optional<TopicEntity> byId = topicRepo.findById(id);
         if (byId.isPresent()) {
@@ -71,20 +87,44 @@ public class TopicServiceJpaImpl implements TopicSerice {
         return byId;
     }
 
+    /**
+     * @param topic must be <b>NonNull</b> topic with legal id  (id > 0)
+     * @param name  must be <b>NonNull</b> and not empty
+     * @return saved TopicEntity from DB.
+     */
     @Override
     public TopicEntity changeName(TopicEntity topic, String name) {
-        log.debug("Changing name of topic with id " + topic.getTopicId() + "to " + name);
+        log.debug("Changing name of topic" + topic + "to " + name);
+        if (Objects.requireNonNull(topic).getTopicId() < 1 | Objects.requireNonNull(name).isEmpty()) {
+            IllegalArgumentException exception = new IllegalArgumentException(topic + ", name  - " + name);
+            log.warn(exception);
+            throw exception;
+        }
+
         topic.setTopicName(name);
         TopicEntity saved = topicRepo.save(topic);
         log.debug("Successfully changed name of topic with id" + topic.getTopicId());
         return saved;
     }
 
-
+    /**
+     * @param topic   must be <b>NonNul</b> TopicEntity with legal id(id> 0)
+     * @param chapter must be <b>NonNull</b> ChapterEntity with legal <b>NonNull</b> chapterName(<code>!chapterName.isEmpty()</code>)
+     * @return TopicEntity from DB.
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
     @Override
     public TopicEntity addChapter(TopicEntity topic, ChapterEntity chapter) {
-        topicRepo.save(topic);
         log.debug("adding chapter " + chapter + "to Topic " + topic);
+        if (Objects.requireNonNull(topic).getTopicId() < 1
+                | Objects.requireNonNull(chapter).getChapterName().isEmpty()) {
+            IllegalArgumentException exception = new IllegalArgumentException(
+                    "topic id must be > 0 && chapter name must be not empty.\n" + topic + chapter);
+            log.warn(exception);
+            throw exception;
+        }
+        topicRepo.save(topic);
         topic.getChapterEntityList().add(chapter);
         chapter.setTopicEntity(topic);
         chapterService.save(chapter);
@@ -93,9 +133,27 @@ public class TopicServiceJpaImpl implements TopicSerice {
         return saved;
     }
 
+    /**
+     * Deleting chapter from Topic.<br/>
+     * <b>Mandatory:</b> <code>topic.getTopicId() == chapter.getTopicEntity().getTopicId()</code>
+     *
+     * @param topic   must be <b>NonNull</b> with legal id(id > 0)
+     * @param chapter must be <b>NonNull</b> with legal id(id > 0)
+     * @return TopicEntity saved in DB
+     * @throws IllegalArgumentException
+     * @throws NullPointerException
+     */
     @Override
     public TopicEntity deleteChapter(TopicEntity topic, ChapterEntity chapter) {
         log.debug("deleting " + chapter + " from " + topic);
+        if (Objects.requireNonNull(topic).getTopicId() < 1 |
+                Objects.requireNonNull(chapter).getChapterId() < 1 ||
+                chapter.getTopicEntity() ==null ||
+                topic.getTopicId() != chapter.getTopicEntity().getTopicId()) {
+            IllegalArgumentException exception = new IllegalArgumentException(topic + " " + chapter);
+            log.warn(exception);
+            throw exception;
+        }
         topic.getChapterEntityList().remove(chapter);
         chapterService.delete(chapter);
         TopicEntity saved = topicRepo.save(topic);
