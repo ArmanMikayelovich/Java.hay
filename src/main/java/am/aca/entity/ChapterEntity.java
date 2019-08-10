@@ -19,9 +19,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class ChapterEntity {
-    public ChapterEntity( String chapterName) {
-        setChapterName(chapterName);
-    }
 
     public ChapterEntity(ChapterDto chapter){
         setChapterName(chapter.getChapterName());

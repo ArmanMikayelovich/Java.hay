@@ -17,9 +17,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class ChapterItemEntity {
 
-    public ChapterItemEntity(String headline) {
-        setHeadline(headline);
-    }
 
     public ChapterItemEntity(ChapterItemDto itemDto) {
         setHeadline(itemDto.getHeadline());

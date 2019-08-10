@@ -61,9 +61,9 @@ public class App implements CommandLineRunner {
             System.out.println();
         }
 
-        ocaTopic = new TopicEntity("OCA");
-         firstChapter = new ChapterEntity("namo");
-        topicSerice.addChapter(ocaTopic, firstChapter);
+//        ocaTopic = new TopicEntity("OCA");
+//         firstChapter = new ChapterEntity("namo");
+//        topicSerice.addChapter(ocaTopic, firstChapter);
 //        firstChapter = new ChapterEntity(ocaTopic, "first chapter");
 //
 ////        firstChapter.setTopicEntity(ocaTopic);

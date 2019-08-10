@@ -29,7 +29,7 @@ public class TopicControllerSpringMvcImpl implements TopicController {
     @RequestMapping(method = RequestMethod.POST)
     public Object postTopic(@RequestBody TopicDto topicDto) {
         if (topicDto.getTopicName() != null && !topicDto.getTopicName().equals("")) {
-            topicSerice.save(new TopicEntity(topicDto.getTopicName()));
+            topicSerice.save(new TopicEntity(topicDto));
         }
         return getAllTopics();
     }

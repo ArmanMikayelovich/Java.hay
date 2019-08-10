@@ -19,10 +19,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class TopicEntity {
-    public TopicEntity(String topicName) {
-        setTopicName(topicName);
-    }
 
+
+    public TopicEntity(TopicDto topicDto) {
+        setTopicName(topicDto.getTopicName());
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "topic_id",updatable = false)
