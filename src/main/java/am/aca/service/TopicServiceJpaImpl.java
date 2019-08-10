@@ -38,46 +38,69 @@ public class TopicServiceJpaImpl implements TopicSerice {
 
     @Override
     public boolean deleteById(Integer id) {
+        log.debug("deleting topic by id");
         Optional<TopicEntity> optional = topicRepo.findById(id);
+
         if (optional.isPresent()) {
+            log.debug("Finded topic by id " + optional.get());
             topicRepo.deleteById(id);
+            log.debug(optional.get() + "successfully deleted");
             return true;
         }
+        log.warn("Topic with id " + id + "not finded");
         return false;
     }
 
     @Override
     public boolean delete(TopicEntity topic) {
+        log.debug("deleting topic" + topic);
         topicRepo.delete(topic);
+        log.debug(topic + " successfully deleted");
         return true;
     }
 
     @Override
     public Optional<TopicEntity> find(Integer id) {
-        return topicRepo.findById(id);
+        log.debug("searching topic by id " + id);
+        Optional<TopicEntity> byId = topicRepo.findById(id);
+        if (byId.isPresent()) {
+            log.debug("Topic with id" + id + "finded." + byId.get());
+            return byId;
+        }
+        log.debug("Topic with id " + id + "not finded");
+        return byId;
     }
 
     @Override
     public TopicEntity changeName(TopicEntity topic, String name) {
+        log.debug("Changing name of topic with id " + topic.getTopicId() + "to " + name);
         topic.setTopicName(name);
-        return topicRepo.save(topic);
+        TopicEntity saved = topicRepo.save(topic);
+        log.debug("Successfully changed name of topic with id" + topic.getTopicId());
+        return saved;
     }
 
 
     @Override
     public TopicEntity addChapter(TopicEntity topic, ChapterEntity chapter) {
         topicRepo.save(topic);
+        log.debug("adding chapter " + chapter + "to Topic " + topic);
         topic.getChapterEntityList().add(chapter);
         chapter.setTopicEntity(topic);
         chapterService.save(chapter);
-        return topicRepo.save(topic);
+        TopicEntity saved = topicRepo.save(topic);
+        log.debug("successfully added " + chapter + "to " + topic);
+        return saved;
     }
 
     @Override
     public TopicEntity deleteChapter(TopicEntity topic, ChapterEntity chapter) {
+        log.debug("deleting " + chapter + " from " + topic);
         topic.getChapterEntityList().remove(chapter);
         chapterService.delete(chapter);
-        return topicRepo.save(topic);
+        TopicEntity saved = topicRepo.save(topic);
+        log.debug("succesfully added " + chapter + " to " + topic);
+        return saved;
     }
 
     @Override
@@ -95,10 +118,12 @@ public class TopicServiceJpaImpl implements TopicSerice {
 
     @Override
     public boolean deleteAllTopics() {
+        log.debug("deleting all topics.");
         for (TopicEntity topic : topicRepo.findAll()) {
             deleteAllChapters(topic);
         }
         topicRepo.deleteAll();
+        log.debug("All topics successfully deleted.");
         return true;
     }
 
