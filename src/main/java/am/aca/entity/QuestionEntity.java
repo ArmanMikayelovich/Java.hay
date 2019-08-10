@@ -33,20 +33,6 @@ public class QuestionEntity implements Serializable {
         setQuestionCode(questionDto.getQuestionCode());
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof QuestionEntity)) return false;
-        QuestionEntity that = (QuestionEntity) o;
-        return getQuestionId() == that.getQuestionId() &&
-                getQuestionText().equals(that.getQuestionText()) &&
-                getQuestionCode().equals(that.getQuestionCode()) &&
-                getChapterEntity() == null && that.getChapterEntity() == null ||
-                getChapterEntity().getChapterId() == that.getChapterEntity().getChapterId() &&
-                getAnswerEntityList().equals(that.getAnswerEntityList()) &&
-                getClarificationEntity().getClarification_id() == that.getClarificationEntity().getClarification_id();
-    }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,4 +56,23 @@ public class QuestionEntity implements Serializable {
     @ToString.Exclude
     @OneToOne(mappedBy = "questionEntity", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private ClarificationEntity clarificationEntity;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof QuestionEntity)) return false;
+        QuestionEntity that = (QuestionEntity) o;
+        return getQuestionId() == that.getQuestionId() &&
+                getQuestionText().equals(that.getQuestionText()) &&
+                getQuestionCode().equals(that.getQuestionCode()) &&
+                getChapterEntity() == null && that.getChapterEntity() == null ||
+                getChapterEntity().getChapterId() == that.getChapterEntity().getChapterId() &&
+                        getAnswerEntityList().equals(that.getAnswerEntityList()) &&
+                        getClarificationEntity().getClarification_id() == that.getClarificationEntity().getClarification_id();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getQuestionId(), getQuestionText(), getQuestionCode(), getChapterEntity().getChapterId(), getAnswerEntityList(), getClarificationEntity());
+    }
 }

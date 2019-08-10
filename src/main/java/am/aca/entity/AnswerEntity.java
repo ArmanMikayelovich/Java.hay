@@ -60,4 +60,8 @@ public class AnswerEntity {
                 getQuestionEntity().getQuestionId() == that.getQuestionEntity().getQuestionId();
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAnswerId(), getAnswerText(), getAnswerCode(), isAccuracy(), getQuestionEntity().getQuestionId());
+    }
 }

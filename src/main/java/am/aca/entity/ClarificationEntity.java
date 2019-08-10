@@ -38,4 +38,9 @@ public class ClarificationEntity {
                 getQuestionEntity() == null && that.getQuestionEntity() == null ||
                 getQuestionEntity().getQuestionId()==that.getQuestionEntity().getQuestionId();
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getClarification_id(), getClarificationText(), getQuestionEntity().getQuestionId());
+    }
 }
