@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "chapters", schema = "oracle_exams",
@@ -20,13 +21,13 @@ import java.util.List;
 @NoArgsConstructor
 public class ChapterEntity {
 
-    public ChapterEntity(ChapterDto chapter){
+    public ChapterEntity(ChapterDto chapter) {
         setChapterName(chapter.getChapterName());
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "chapter_id", nullable = false,updatable = false)
+    @Column(name = "chapter_id", nullable = false, updatable = false)
     private int chapterId;
 
     @Column(name = "chapter_name", length = 256, nullable = false)
@@ -36,9 +37,27 @@ public class ChapterEntity {
     @JoinColumn(name = "topic_id", referencedColumnName = "topic_id", nullable = false)
     private TopicEntity topicEntity;
 
-    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private List<ChapterItemEntity> chapterItemList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true,fetch = FetchType.LAZY,cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<QuestionEntity> questionEntityList = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ChapterEntity)) return false;
+        ChapterEntity that = (ChapterEntity) o;
+        return getChapterId() == that.getChapterId() &&
+                Objects.equals(getChapterName(), that.getChapterName()) &&
+              getTopicEntity() == null && that.getTopicEntity() == null ||
+                getTopicEntity().getTopicId() == getTopicEntity().getTopicId() &&
+                Objects.equals(getChapterItemList(), that.getChapterItemList()) &&
+                Objects.equals(getQuestionEntityList(), that.getQuestionEntityList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getChapterId(), getChapterName(), getTopicEntity().getTopicId(), getChapterItemList(), getQuestionEntityList());
+    }
 }

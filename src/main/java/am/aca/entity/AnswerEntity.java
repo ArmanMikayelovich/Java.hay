@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "answers", schema = "oracle_exams",
@@ -45,4 +46,18 @@ public class AnswerEntity {
     @ManyToOne
     @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private QuestionEntity questionEntity;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AnswerEntity)) return false;
+        AnswerEntity that = (AnswerEntity) o;
+        return getAnswerId() == that.getAnswerId() &&
+                isAccuracy() == that.isAccuracy() &&
+                getAnswerText().equals(that.getAnswerText()) &&
+                getAnswerCode().equals(that.getAnswerCode()) &&
+                getQuestionEntity() == null && that.getQuestionEntity() == null ||
+                getQuestionEntity().getQuestionId() == that.getQuestionEntity().getQuestionId();
+    }
+
 }

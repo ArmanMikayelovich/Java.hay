@@ -2,9 +2,12 @@ package am.aca.entity;
 
 import am.aca.dto.ChapterItemDto;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "chapter_items", schema = "oracle_exams",
@@ -24,7 +27,7 @@ public class ChapterItemEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id", nullable = false,updatable = false)
+    @Column(name = "item_id", nullable = false, updatable = false)
     private int itemId;
 
     @Column(name = "headline", length = 1000, nullable = false)
@@ -32,6 +35,24 @@ public class ChapterItemEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chapter_id", nullable = false, referencedColumnName = "chapter_id")
+    @ToString.Exclude
     private ChapterEntity chapterEntity;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ChapterItemEntity)) return false;
+        ChapterItemEntity that = (ChapterItemEntity) o;
+        return getItemId() == that.getItemId() &&
+                Objects.equals(getHeadline(), that.getHeadline()) &&
+                (getChapterEntity() == null || (that.getChapterEntity() != null)
+                        && getChapterEntity().getChapterId() == that.getChapterEntity().getChapterId());
+
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getItemId(), getHeadline(), getChapterEntity().getChapterId());
+    }
 }
 

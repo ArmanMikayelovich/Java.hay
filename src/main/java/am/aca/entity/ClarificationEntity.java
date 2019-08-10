@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "clarification", schema = "oracle_exams",
@@ -15,11 +16,6 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 public class ClarificationEntity {
-    public ClarificationEntity(QuestionEntity questionEntity, String clarificationText) {
-        setQuestionEntity(questionEntity);
-        setClarificationText(clarificationText);
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clarification_id", nullable = false, unique = true,updatable = false)
@@ -31,4 +27,15 @@ public class ClarificationEntity {
     @OneToOne
     @JoinColumn(name = "question_id", referencedColumnName = "question_id", nullable = false)
     private QuestionEntity questionEntity;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ClarificationEntity)) return false;
+        ClarificationEntity that = (ClarificationEntity) o;
+        return getClarification_id() == that.getClarification_id() &&
+                getClarificationText().equals(that.getClarificationText()) &&
+                getQuestionEntity() == null && that.getQuestionEntity() == null ||
+                getQuestionEntity().getQuestionId()==that.getQuestionEntity().getQuestionId();
+    }
 }

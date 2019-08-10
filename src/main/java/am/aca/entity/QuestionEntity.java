@@ -3,11 +3,13 @@ package am.aca.entity;
 import am.aca.dto.QuestionDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "questions", schema = "oracle_exams",
@@ -31,9 +33,24 @@ public class QuestionEntity implements Serializable {
         setQuestionCode(questionDto.getQuestionCode());
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof QuestionEntity)) return false;
+        QuestionEntity that = (QuestionEntity) o;
+        return getQuestionId() == that.getQuestionId() &&
+                getQuestionText().equals(that.getQuestionText()) &&
+                getQuestionCode().equals(that.getQuestionCode()) &&
+                getChapterEntity() == null && that.getChapterEntity() == null ||
+                getChapterEntity().getChapterId() == that.getChapterEntity().getChapterId() &&
+                getAnswerEntityList().equals(that.getAnswerEntityList()) &&
+                getClarificationEntity().getClarification_id() == that.getClarificationEntity().getClarification_id();
+    }
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_id",updatable = false)
+    @Column(name = "question_id", updatable = false)
     private int questionId;
 
     @Column(name = "question_text", length = 1000, nullable = false)
@@ -42,13 +59,15 @@ public class QuestionEntity implements Serializable {
     @Column(name = "question_code", length = 1000)
     private String questionCode;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "chapter_id", referencedColumnName = "chapter_id")
     private ChapterEntity chapterEntity;
 
-    @OneToMany(mappedBy = "questionEntity", orphanRemoval = true,fetch = FetchType.EAGER,cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @OneToMany(mappedBy = "questionEntity", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<AnswerEntity> answerEntityList = new ArrayList<>();
-
+    @ToString.Exclude
     @OneToOne(mappedBy = "questionEntity", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private ClarificationEntity clarificationEntity;
 }

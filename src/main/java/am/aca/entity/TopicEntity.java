@@ -3,10 +3,12 @@ package am.aca.entity;
 import am.aca.dto.TopicDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "topics", schema = "oracle_exams",
@@ -34,7 +36,22 @@ public class TopicEntity {
     private String topicName;
 
     @OneToMany(mappedBy = "topicEntity", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
+    @ToString.Exclude
     private List<ChapterEntity> chapterEntityList = new ArrayList<>();
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TopicEntity)) return false;
+        TopicEntity that = (TopicEntity) o;
+        return getTopicId() == that.getTopicId() &&
+                Objects.equals(getTopicName(), that.getTopicName()) &&
+                Objects.equals(getChapterEntityList(), that.getChapterEntityList());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTopicId(), getTopicName(), getChapterEntityList());
+    }
 }
