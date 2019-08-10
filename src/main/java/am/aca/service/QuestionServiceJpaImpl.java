@@ -5,6 +5,8 @@ import am.aca.entity.AnswerEntity;
 import am.aca.entity.ClarificationEntity;
 import am.aca.entity.QuestionEntity;
 import am.aca.repository.QuestionRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +16,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class QuestionServiceJpaImpl implements QuestionService {
+    private static final Logger log = LogManager.getLogger(QuestionServiceJpaImpl.class);
+
     private final QuestionRepository questionRepo;
     private final AnswerService answerService;
     private final ClarificationService clarificationService;
@@ -33,18 +37,31 @@ public class QuestionServiceJpaImpl implements QuestionService {
 
     @Override
     public Optional<QuestionEntity> findById(int id) {
-        return questionRepo.findById(id);
+        log.debug("Shearching Question with id" + id);
+        Optional<QuestionEntity> byId = questionRepo.findById(id);
+        if (byId.isPresent()) {
+            log.debug("Question with id found." + byId.get());
+        } else {
+            log.debug("Question with" + id + "not found");
+        }
+        return byId;
     }
 
     @Override
     public QuestionEntity save(QuestionEntity question) {
-        return questionRepo.save(question);
+        log.debug("Saving question " + question);
+        QuestionEntity save = questionRepo.save(question);
+        log.debug("Question" + save + "saved");
+        return save;
     }
 
     @Override
     public QuestionEntity changeText(QuestionEntity question, String text) {
+        log.debug("Changing text of " + question);
         question.setQuestionText(text);
-        return questionRepo.save(question);
+        QuestionEntity save = questionRepo.save(question);
+        log.debug("Question text changed " + save);
+        return save;
     }
 
     @Override
@@ -55,36 +72,48 @@ public class QuestionServiceJpaImpl implements QuestionService {
 
     @Override
     public QuestionEntity addAnswer(QuestionEntity question, AnswerEntity answer) {
+        log.debug("Adding " + answer + " to " + question);
         questionRepo.save(question);
         question.getAnswerEntityList().add(answer);
         answer.setQuestionEntity(question);
         answerService.save(answer);
-        return questionRepo.save(question);
+        QuestionEntity save = questionRepo.save(question);
+        log.debug("Answer" + answer + " added to " + question);
+        return save;
     }
 
     @Override
     public QuestionEntity deleteAnswer(QuestionEntity question, AnswerEntity answer) {
+        log.debug("deleting " + answer + " from " + question);
         question.getAnswerEntityList().remove(answer);
         answerService.delete(answer);
-        return questionRepo.save(question);
+        QuestionEntity save = questionRepo.save(question);
+        log.debug(answer + "deleted from " + question);
+        return save;
     }
 
     @Override
     public QuestionEntity deleteAllAnswer(QuestionEntity question) {
+        log.debug("deleting all answers from " + question);
         for (AnswerEntity answer : question.getAnswerEntityList()) {
             answerService.delete(answer);
         }
         question.setAnswerEntityList(new ArrayList<>());
-        return questionRepo.save(question);
+        QuestionEntity save = questionRepo.save(question);
+        log.debug("All answers deleted from " + save);
+        return save;
     }
 
     @Override
     public QuestionEntity changeClarification(QuestionEntity question, ClarificationEntity clarification) {
+        log.debug("Changing clarification of " + question + " to " + clarification);
         clarificationService.delete(question.getClarificationEntity());
         question.setClarificationEntity(clarification);
         clarification.setQuestionEntity(question);
         clarificationService.save(clarification);
-        return questionRepo.save(question);
+        QuestionEntity save = questionRepo.save(question);
+        log.debug("Clarification of " + question + "changed");
+        return save;
     }
 
     @Override

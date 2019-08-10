@@ -29,7 +29,7 @@ public class TopicServiceJpaImpl implements TopicSerice {
         log.debug("saving " + topicEntity);
         if (topicEntity == null || topicEntity.getTopicName() == null || topicEntity.getTopicName().equals("")) {
             log.error(topicEntity + "not accepted");
-            throw new IllegalArgumentException(topicEntity.toString());
+            throw new IllegalArgumentException(String.valueOf(topicEntity));
         }
         TopicEntity saved = topicRepo.save(topicEntity);
         log.debug(saved + "successfully saved");
@@ -42,12 +42,12 @@ public class TopicServiceJpaImpl implements TopicSerice {
         Optional<TopicEntity> optional = topicRepo.findById(id);
 
         if (optional.isPresent()) {
-            log.debug("Finded topic by id " + optional.get());
+            log.debug(" topic by id " + optional.get());
             topicRepo.deleteById(id);
             log.debug(optional.get() + "successfully deleted");
             return true;
         }
-        log.warn("Topic with id " + id + "not finded");
+        log.warn("Topic with id " + id + "not found");
         return false;
     }
 
@@ -64,10 +64,10 @@ public class TopicServiceJpaImpl implements TopicSerice {
         log.debug("searching topic by id " + id);
         Optional<TopicEntity> byId = topicRepo.findById(id);
         if (byId.isPresent()) {
-            log.debug("Topic with id" + id + "finded." + byId.get());
+            log.debug("Topic with id" + id + "found." + byId.get());
             return byId;
         }
-        log.debug("Topic with id " + id + "not finded");
+        log.debug("Topic with id " + id + "not found");
         return byId;
     }
 

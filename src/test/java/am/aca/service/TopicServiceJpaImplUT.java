@@ -27,11 +27,10 @@ public class TopicServiceJpaImplUT {
         topicService = new TopicServiceJpaImpl(topicRepo, chapterService);
     }
 
-    @Test
-    public void save() {
-        topicService.save(topicEntity);
+    @Test(expected = IllegalArgumentException.class )
+    public void saveNullObject() {
+        topicService.save(null);
         Mockito.verify(topicRepo, Mockito.times(1)).save(any());
-
     }
 
     @Test

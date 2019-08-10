@@ -5,6 +5,8 @@ import am.aca.entity.ChapterEntity;
 import am.aca.entity.ChapterItemEntity;
 import am.aca.entity.QuestionEntity;
 import am.aca.repository.ChapterRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ChapterServiceJpaImpl implements ChapterService {
+    private static final Logger log = LogManager.getLogger(ChapterServiceJpaImpl.class);
     private final ChapterRepository chapterRepo;
     private final ChapterItemService itemService;
     private final QuestionService questionService;
@@ -27,81 +30,115 @@ public class ChapterServiceJpaImpl implements ChapterService {
 
     @Override
     public ChapterEntity save(ChapterEntity chapter) {
-        return chapterRepo.save(chapter);
+        log.debug("saving " + chapter);
+        ChapterEntity save = chapterRepo.save(chapter);
+        log.debug(save + " saved");
+        return save;
     }
 
     @Override
     public boolean delete(ChapterEntity chapterEntity) {
+        log.debug("deleting" + chapterEntity);
         chapterRepo.delete(chapterEntity);
+        log.debug("deleted chapter with id " + chapterEntity.getChapterId());
         return true;
     }
 
     @Override
     public ChapterEntity changeName(ChapterEntity chapter, String name) {
+        log.debug("Changing name of " + chapter + "to " + name);
         chapter.setChapterName(name);
-        return chapterRepo.save(chapter);
 
+        ChapterEntity save = chapterRepo.save(chapter);
+        log.debug("Name of chapter" + save + "changed");
+        return save;
     }
 
     @Override
     public Optional<ChapterEntity> findById(Integer id) {
-        return chapterRepo.findById(id);
+        log.debug("searching Chapter by id " + id);
+        Optional<ChapterEntity> byId = chapterRepo.findById(id);
+        if (byId.isPresent()) {
+            log.debug("Chapter found " + byId.get());
+        } else {
+            log.debug("chapter with id " + id + "not found.");
+        }
+        return byId;
     }
 
     @Override
     public List<ChapterEntity> findAll() {
+        log.debug("requested all chapters.WHY?:)");
         return chapterRepo.findAll();
     }
 
     @Override
     public ChapterEntity addChapterItem(ChapterEntity chapter, ChapterItemEntity item) {
+        log.debug("Adding " + item + "to " + chapter);
         chapterRepo.save(chapter);
         chapter.getChapterItemList().add(item);
         item.setChapterEntity(chapter);
         itemService.save(item);
-        return chapterRepo.save(chapter);
+        ChapterEntity save = chapterRepo.save(chapter);
+        log.debug("ChapterItem " + item + "added to " + chapter);
+        return save;
     }
 
     @Override
     public ChapterEntity deleteChapterItem(ChapterEntity chapter, ChapterItemEntity item) {
+        log.debug("Deleting " + item + "from " + chapter);
         chapter.getChapterItemList().remove(item);
         itemService.delete(item);
-        return chapterRepo.save(chapter);
+        ChapterEntity save = chapterRepo.save(chapter);
+        log.debug("deleted" + item + "from " + save);
+        return save;
     }
 
     @Override
     public ChapterEntity deleteAllChapterItems(ChapterEntity chapter) {
+        log.debug("deleting all item from " + chapter);
         for (ChapterItemEntity item : chapter.getChapterItemList()) {
             itemService.delete(item);
         }
         chapter.setChapterItemList(new ArrayList<>());
-        return chapterRepo.save(chapter);
+        ChapterEntity save = chapterRepo.save(chapter);
+        log.debug("All item from " + save + " deleted.");
+        return save;
     }
 
     @Override
     public ChapterEntity addQuestion(ChapterEntity chapter, QuestionEntity question) {
+        log.debug("adding " + question + " to " + chapter);
         chapterRepo.save(chapter);
         chapter.getQuestionEntityList().add(question);
         question.setChapterEntity(chapter);
         questionService.save(question);
-        return chapterRepo.save(chapter);
+        ChapterEntity save = chapterRepo.save(chapter);
+        log.debug(question + " added to " + chapter);
+        return save;
     }
 
     @Override
     public ChapterEntity deleteQuestion(ChapterEntity chapter, QuestionEntity question) {
+        log.debug("removing " + question + "from " + chapter);
         chapter.getQuestionEntityList().remove(question);
         question.setChapterEntity(chapter);
         questionService.save(question);
-        return chapterRepo.save(chapter);
+        ChapterEntity save = chapterRepo.save(chapter);
+        log.debug("Question " + question + " removed from " + chapter);
+        return save;
     }
 
     @Override
     public ChapterEntity deleteAllQuestions(ChapterEntity chapter) {
+        log.debug("deleting all items from " + chapter);
         for (QuestionEntity question : chapter.getQuestionEntityList()) {
             questionService.delete(question);
         }
         chapter.setQuestionEntityList(new ArrayList<>());
-        return chapterRepo.save(chapter);
+        ChapterEntity save = chapterRepo.save(chapter);
+        log.debug("All questions deleted from " + save);
+        return save;
     }
 
     @Override
