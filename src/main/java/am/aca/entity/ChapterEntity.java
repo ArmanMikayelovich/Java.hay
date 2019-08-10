@@ -3,6 +3,7 @@ package am.aca.entity;
 import am.aca.dto.ChapterDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -50,14 +51,25 @@ public class ChapterEntity {
         ChapterEntity that = (ChapterEntity) o;
         return getChapterId() == that.getChapterId() &&
                 Objects.equals(getChapterName(), that.getChapterName()) &&
-              getTopicEntity() == null && that.getTopicEntity() == null ||
+                getTopicEntity() == null && that.getTopicEntity() == null ||
                 getTopicEntity().getTopicId() == getTopicEntity().getTopicId() &&
-                Objects.equals(getChapterItemList(), that.getChapterItemList()) &&
-                Objects.equals(getQuestionEntityList(), that.getQuestionEntityList());
+                        Objects.equals(getChapterItemList(), that.getChapterItemList()) &&
+                        Objects.equals(getQuestionEntityList(), that.getQuestionEntityList());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getChapterId(), getChapterName(), getTopicEntity().getTopicId(), getChapterItemList(), getQuestionEntityList());
+    }
+
+    @Override
+    public String toString() {
+        return "ChapterEntity{" +
+                "chapterId=" + chapterId +
+                ", chapterName='" + chapterName + '\'' +
+                ", topicId=" + topicEntity.getTopicId() +
+                ", chapterItemList.size=" + chapterItemList.size() +
+                ", questionEntityList.size=" + questionEntityList.size() +
+                '}';
     }
 }

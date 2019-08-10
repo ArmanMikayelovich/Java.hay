@@ -1,5 +1,6 @@
 package am.aca.entity;
 
+import am.aca.dto.ClarificationDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,10 +17,13 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 public class ClarificationEntity {
+    public ClarificationEntity(ClarificationDto clarificationDto) {
+        setClarificationText(clarificationDto.getText());
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clarification_id", nullable = false, unique = true,updatable = false)
-    private int clarification_id;
+    private int clarificationId;
 
     @Column(name = "clarification_text", length = 1000, nullable = false)
     private String clarificationText;
@@ -33,7 +37,7 @@ public class ClarificationEntity {
         if (this == o) return true;
         if (!(o instanceof ClarificationEntity)) return false;
         ClarificationEntity that = (ClarificationEntity) o;
-        return getClarification_id() == that.getClarification_id() &&
+        return getClarificationId() == that.getClarificationId() &&
                 getClarificationText().equals(that.getClarificationText()) &&
                 getQuestionEntity() == null && that.getQuestionEntity() == null ||
                 getQuestionEntity().getQuestionId()==that.getQuestionEntity().getQuestionId();
@@ -41,6 +45,15 @@ public class ClarificationEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getClarification_id(), getClarificationText(), getQuestionEntity().getQuestionId());
+        return Objects.hash(getClarificationId(), getClarificationText(), getQuestionEntity().getQuestionId());
+    }
+
+    @Override
+    public String toString() {
+        return "ClarificationEntity{" +
+                "clarificationId=" + clarificationId +
+                ", clarificationText='" + clarificationText + '\'' +
+                ", questionId=" + questionEntity.getQuestionId() +
+                '}';
     }
 }

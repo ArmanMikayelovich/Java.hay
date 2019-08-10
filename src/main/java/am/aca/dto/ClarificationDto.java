@@ -18,7 +18,7 @@ public class ClarificationDto {
     private int questionId;
 
     public ClarificationDto(ClarificationEntity clarification) {
-        setId(clarification.getClarification_id());
+        setId(clarification.getClarificationId());
         setText(clarification.getClarificationText());
         setQuestionId(clarification.getQuestionEntity().getQuestionId());
     }

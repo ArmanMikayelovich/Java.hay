@@ -4,6 +4,8 @@ import am.aca.dto.TopicDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.TopicEntity;
 import am.aca.repository.TopicRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class TopicServiceJpaImpl implements TopicSerice {
+    private static final Logger log = LogManager.getLogger(TopicServiceJpaImpl.class);
+
     private final TopicRepository topicRepo;
     private final ChapterService chapterService;
 
@@ -22,7 +26,14 @@ public class TopicServiceJpaImpl implements TopicSerice {
 
     @Override
     public TopicEntity save(TopicEntity topicEntity) {
-        return topicRepo.save(topicEntity);
+        log.debug("saving " + topicEntity);
+        if (topicEntity == null || topicEntity.getTopicName() == null || topicEntity.getTopicName().equals("")) {
+            log.error(topicEntity + "not accepted");
+            throw new IllegalArgumentException(topicEntity.toString());
+        }
+        TopicEntity saved = topicRepo.save(topicEntity);
+        log.debug(saved + "successfully saved");
+        return saved;
     }
 
     @Override

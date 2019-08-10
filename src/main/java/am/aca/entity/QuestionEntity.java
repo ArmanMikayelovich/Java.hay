@@ -23,10 +23,7 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 public class QuestionEntity implements Serializable {
-    public QuestionEntity(ChapterEntity chapterEntity, String questionText) {
-        setChapterEntity(chapterEntity);
-        setQuestionText(questionText);
-    }
+
 
     public QuestionEntity(QuestionDto questionDto) {
         setQuestionText(questionDto.getQuestionText());
@@ -45,15 +42,12 @@ public class QuestionEntity implements Serializable {
     @Column(name = "question_code", length = 1000)
     private String questionCode;
 
-    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "chapter_id", referencedColumnName = "chapter_id")
     private ChapterEntity chapterEntity;
 
-    @ToString.Exclude
     @OneToMany(mappedBy = "questionEntity", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
     private List<AnswerEntity> answerEntityList = new ArrayList<>();
-    @ToString.Exclude
     @OneToOne(mappedBy = "questionEntity", orphanRemoval = true, cascade = CascadeType.REMOVE)
     private ClarificationEntity clarificationEntity;
 
@@ -68,11 +62,24 @@ public class QuestionEntity implements Serializable {
                 getChapterEntity() == null && that.getChapterEntity() == null ||
                 getChapterEntity().getChapterId() == that.getChapterEntity().getChapterId() &&
                         getAnswerEntityList().equals(that.getAnswerEntityList()) &&
-                        getClarificationEntity().getClarification_id() == that.getClarificationEntity().getClarification_id();
+                        getClarificationEntity().getClarificationId() == that.getClarificationEntity().getClarificationId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getQuestionId(), getQuestionText(), getQuestionCode(), getChapterEntity().getChapterId(), getAnswerEntityList(), getClarificationEntity());
+        return Objects.hash(getQuestionId(), getQuestionText(), getQuestionCode(),
+                getChapterEntity().getChapterId(), getAnswerEntityList(), getClarificationEntity());
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionEntity{" +
+                "questionId=" + questionId +
+                ", questionText='" + questionText + '\'' +
+                ", questionCode='" + questionCode + '\'' +
+                ", chapterId=" + chapterEntity.getChapterId() +
+                ", answerEntityList.size=" + answerEntityList.size() +
+                ", clarificationId=" + clarificationEntity.getClarificationId() +
+                '}';
     }
 }

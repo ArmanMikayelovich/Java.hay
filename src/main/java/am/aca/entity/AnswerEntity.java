@@ -17,12 +17,6 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 public class AnswerEntity {
-    public AnswerEntity(QuestionEntity questionEntity,String answerText,String answerCode,boolean accuracy) {
-        setQuestionEntity(questionEntity);
-        setAnswerText(answerText);
-        setAnswerCode(answerCode);
-        setAccuracy(accuracy);
-    }
 
     public AnswerEntity(AnswerDto answer) {
         setAnswerCode(answer.getCode());
@@ -63,5 +57,16 @@ public class AnswerEntity {
     @Override
     public int hashCode() {
         return Objects.hash(getAnswerId(), getAnswerText(), getAnswerCode(), isAccuracy(), getQuestionEntity().getQuestionId());
+    }
+
+    @Override
+    public String toString() {
+        return "AnswerEntity{" +
+                "answerId=" + answerId +
+                ", answerText='" + answerText + '\'' +
+                ", answerCode='" + answerCode + '\'' +
+                ", accuracy=" + accuracy +
+                ", questionId=" + questionEntity.getQuestionId() +
+                '}';
     }
 }

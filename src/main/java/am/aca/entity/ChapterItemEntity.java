@@ -35,7 +35,6 @@ public class ChapterItemEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chapter_id", nullable = false, referencedColumnName = "chapter_id")
-    @ToString.Exclude
     private ChapterEntity chapterEntity;
 
     @Override
@@ -53,6 +52,15 @@ public class ChapterItemEntity {
     @Override
     public int hashCode() {
         return Objects.hash(getItemId(), getHeadline(), getChapterEntity().getChapterId());
+    }
+
+    @Override
+    public String toString() {
+        return "ChapterItemEntity{" +
+                "itemId=" + itemId +
+                ", headline='" + headline + '\'' +
+                ", chapterId=" + chapterEntity.getChapterId() +
+                '}';
     }
 }
 

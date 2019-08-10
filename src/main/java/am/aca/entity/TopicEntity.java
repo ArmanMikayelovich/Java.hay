@@ -36,7 +36,6 @@ public class TopicEntity {
     private String topicName;
 
     @OneToMany(mappedBy = "topicEntity", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER, orphanRemoval = true)
-    @ToString.Exclude
     private List<ChapterEntity> chapterEntityList = new ArrayList<>();
 
 
@@ -53,5 +52,14 @@ public class TopicEntity {
     @Override
     public int hashCode() {
         return Objects.hash(getTopicId(), getTopicName(), getChapterEntityList());
+    }
+
+    @Override
+    public String toString() {
+        return "TopicEntity{" +
+                "topicId=" + topicId +
+                ", topicName='" + topicName + '\'' +
+                ", chapterEntityList.size=" + chapterEntityList.size() +
+                '}';
     }
 }
