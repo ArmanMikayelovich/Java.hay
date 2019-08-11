@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -29,15 +30,38 @@ public class QuestionServiceJpaImpl implements QuestionService {
         this.clarificationService = clarificationService;
     }
 
+    /**
+     * Detele Question
+     * @param question must be <b>NonNull</b> with legal id <code>question.getQuestionId() > 0</code>
+     * @return boolean true, if deleted
+     * @throws NullPointerException
+     * @throws IllegalArgumentException
+     */
     @Override
     public boolean delete(QuestionEntity question) {
+        if (Objects.requireNonNull(question).getQuestionId() < 1) {
+            IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(question));
+            log.warn(exception);
+            throw exception;
+        }
         questionRepo.delete(question);
         return true;
     }
 
+    /**
+     * Find Question by id
+     * @param id must be > 0
+     * @return Optional<QuestionEntity>
+     * @throws IllegalArgumentException
+     */
     @Override
     public Optional<QuestionEntity> findById(int id) {
-        log.debug("Shearching Question with id" + id);
+        if (id < 1) {
+            IllegalArgumentException exception = new IllegalArgumentException(id + "must be > 0");
+            log.warn(exception);
+            throw exception;
+        }
+        log.debug("Searching Question with id" + id);
         Optional<QuestionEntity> byId = questionRepo.findById(id);
         if (byId.isPresent()) {
             log.debug("Question with id found." + byId.get());
@@ -47,8 +71,19 @@ public class QuestionServiceJpaImpl implements QuestionService {
         return byId;
     }
 
+    /**
+     *
+     * @param question must be <b>NonNull</b>
+     * @return saved QuestionEntity
+     * @throws NullPointerException
+     */
     @Override
     public QuestionEntity save(QuestionEntity question) {
+        if (Objects.requireNonNull(question).getQuestionText().isEmpty()) {
+            IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(question));
+            log.warn(exception);
+            throw exception;
+        }
         log.debug("Saving question " + question);
         QuestionEntity save = questionRepo.save(question);
         log.debug("Question" + save + "saved");
@@ -66,8 +101,11 @@ public class QuestionServiceJpaImpl implements QuestionService {
 
     @Override
     public QuestionEntity changeCode(QuestionEntity question, String code) {
+        log.debug("changing code of " + question + " to " + code);
         question.setQuestionCode(code);
-        return questionRepo.save(question);
+        QuestionEntity save = questionRepo.save(question);
+        log.debug(save + "changed");
+        return save;
     }
 
     @Override

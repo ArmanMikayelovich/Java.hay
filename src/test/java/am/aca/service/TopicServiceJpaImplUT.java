@@ -1,18 +1,28 @@
 package am.aca.service;
 
+import am.aca.dto.TopicDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.TopicEntity;
 import am.aca.repository.TopicRepository;
+import org.assertj.core.api.HamcrestCondition;
+import org.hamcrest.CoreMatchers;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.internal.hamcrest.HamcrestArgumentMatcher;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TopicServiceJpaImplUT {
@@ -200,13 +210,13 @@ public class TopicServiceJpaImplUT {
         topicService.deleteChapter(topicEntity, new ChapterEntity());
     }
 
-    @Test(expected = IllegalArgumentException.class )
+    @Test(expected = IllegalArgumentException.class)
     public void deleteChapterWithoutMandatory() {
         TopicEntity topicEntity = new TopicEntity();
         topicEntity.setTopicId(1);
         ChapterEntity chapterEntity = new ChapterEntity();
         chapterEntity.setChapterId(14);
-        topicService.deleteChapter(topicEntity,chapterEntity);
+        topicService.deleteChapter(topicEntity, chapterEntity);
     }
 
     @Test
@@ -224,21 +234,45 @@ public class TopicServiceJpaImplUT {
 
     @Test
     public void findAll() {
+        when(topicRepo.findAll()).thenReturn(new ArrayList<>());
+        Assert.assertTrue(topicService.findAll() instanceof Collection);
+        verify(topicRepo, times(1)).findAll();
+
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void deleteAllChaptersWithNullArgument() {
+        topicService.deleteAllChapters(null);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void deleteAllChaptersWithIlegalArgument() {
+        topicService.deleteAllChapters(new TopicEntity());
     }
 
     @Test
-    public void deleteAllChapters() {
+    public void deleteAllChaptersNormalArgument() {
+        TopicEntity topicEntity = new TopicEntity();
+        topicEntity.setTopicId(1);
+        topicService.deleteAllChapters(topicEntity);
+        verify(topicRepo, times(1)).save(any());
     }
 
     @Test
     public void deleteAllTopics() {
+        topicService.deleteAllTopics();
+        verify(topicRepo, times(1)).deleteAll();
     }
 
     @Test
     public void toDto() {
+        TopicEntity topic = new TopicEntity();
+        topic.setTopicName(" ");
+        assertThat(topicService.toDto(topic), instanceOf(TopicDto.class));
     }
 
     @Test
     public void testToDto() {
+        assertThat(topicService.toDto(new ArrayList<>()), instanceOf(List.class));
     }
 }

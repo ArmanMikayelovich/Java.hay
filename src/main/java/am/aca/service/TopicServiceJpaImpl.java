@@ -148,7 +148,7 @@ public class TopicServiceJpaImpl implements TopicService {
         log.debug("deleting " + chapter + " from " + topic);
         if (Objects.requireNonNull(topic).getTopicId() < 1 |
                 Objects.requireNonNull(chapter).getChapterId() < 1 ||
-                chapter.getTopicEntity() ==null ||
+                chapter.getTopicEntity() == null ||
                 topic.getTopicId() != chapter.getTopicEntity().getTopicId()) {
             IllegalArgumentException exception = new IllegalArgumentException(topic + " " + chapter);
             log.warn(exception);
@@ -161,16 +161,32 @@ public class TopicServiceJpaImpl implements TopicService {
         return saved;
     }
 
+    /**
+     * @return all TopicEntities from DB.
+     */
     @Override
     public List<TopicEntity> findAll() {
+        log.debug("requested all Topics.");
         return topicRepo.findAll();
     }
 
+    /**
+     * @param topicEntity must be <b>NonNull</b> with legal id(id>0)
+     * @return
+     * @throws NullPointerException     when argument is null
+     * @throws IllegalArgumentException when topic id < 0
+     */
     @Override
     public TopicEntity deleteAllChapters(TopicEntity topicEntity) {
+        if (Objects.requireNonNull(topicEntity).getTopicId() < 1) {
+            IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(topicEntity));
+            log.warn(exception);
+            throw exception;
+        }
         for (ChapterEntity chapterEntity : topicEntity.getChapterEntityList()) {
             chapterService.delete(chapterEntity);
         }
+        topicEntity.getChapterEntityList().removeAll(topicEntity.getChapterEntityList());
         return topicRepo.save(topicEntity);
     }
 
@@ -185,13 +201,32 @@ public class TopicServiceJpaImpl implements TopicService {
         return true;
     }
 
+    /**
+     * Convert TopicEntity to Data Transfer Object
+     *
+     * @param topic must be <b>NonNull</b> with legal TopicName argument <code>!topicName.isEmpty()</code>
+     * @return TopicDto
+     * @see TopicDto ,
+     */
     @Override
     public TopicDto toDto(TopicEntity topic) {
+        if (Objects.requireNonNull(topic).getTopicName().isEmpty()) {
+            IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(topic));
+            log.warn(exception);
+            throw exception;
+        }
         return new TopicDto(topic);
     }
 
+    /**
+     * Converting List of TopicEntity to List of TopicDto
+     *
+     * @param topicList
+     * @return List<TopicDto>
+     * @see TopicDto
+     */
     @Override
     public List<TopicDto> toDto(List<TopicEntity> topicList) {
-        return topicList.stream().map(TopicDto::new).collect(Collectors.toList());
+        return topicList.stream().map(this::toDto).collect(Collectors.toList());
     }
 }

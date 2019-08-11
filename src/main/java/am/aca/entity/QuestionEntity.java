@@ -77,9 +77,9 @@ public class QuestionEntity implements Serializable {
                 "questionId=" + questionId +
                 ", questionText='" + questionText + '\'' +
                 ", questionCode='" + questionCode + '\'' +
-                ", chapterId=" + chapterEntity.getChapterId() +
+                ", chapterId=" + (chapterEntity != null ? chapterEntity.getChapterId() : "null") +
                 ", answerEntityList.size=" + answerEntityList.size() +
-                ", clarificationId=" + clarificationEntity.getClarificationId() +
+                ", clarificationId=" +(clarificationEntity!= null ? clarificationEntity.getClarificationId() : "null") +
                 '}';
     }
 }
