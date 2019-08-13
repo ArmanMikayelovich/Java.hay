@@ -2,9 +2,7 @@ package am.aca.entity;
 
 import am.aca.dto.ChapterItemDto;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -59,7 +57,7 @@ public class ChapterItemEntity {
         return "ChapterItemEntity{" +
                 "itemId=" + itemId +
                 ", headline='" + headline + '\'' +
-                ", chapterId=" + chapterEntity.getChapterId() +
+                ", chapterId=" + (chapterEntity != null ? chapterEntity.getChapterId() : " null") +
                 '}';
     }
 }

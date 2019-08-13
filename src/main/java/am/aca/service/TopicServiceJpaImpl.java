@@ -42,7 +42,7 @@ public class TopicServiceJpaImpl implements TopicService {
         log.debug("deleting topic by id");
         if (Objects.requireNonNull(id) < 1) {
             IllegalArgumentException exception = new IllegalArgumentException("Topic id must be > 0!");
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
         Optional<TopicEntity> optional = topicRepo.findById(id);
@@ -53,7 +53,7 @@ public class TopicServiceJpaImpl implements TopicService {
             log.debug(optional.get() + "successfully deleted");
             return true;
         }
-        log.warn("Topic with id " + id + "not found");
+        log.error("Topic with id " + id + "not found");
         return false;
     }
 
@@ -62,7 +62,7 @@ public class TopicServiceJpaImpl implements TopicService {
         log.debug("deleting topic" + topic);
         if (Objects.requireNonNull(topic).getTopicId() < 1) {
             IllegalArgumentException exception = new IllegalArgumentException("Topic id must be > 0");
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
         topicRepo.delete(topic);
@@ -97,7 +97,7 @@ public class TopicServiceJpaImpl implements TopicService {
         log.debug("Changing name of topic" + topic + "to " + name);
         if (Objects.requireNonNull(topic).getTopicId() < 1 | Objects.requireNonNull(name).isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(topic + ", name  - " + name);
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
 
@@ -121,7 +121,7 @@ public class TopicServiceJpaImpl implements TopicService {
                 | Objects.requireNonNull(chapter).getChapterName().isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(
                     "topic id must be > 0 && chapter name must be not empty.\n" + topic + chapter);
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
         topicRepo.save(topic);
@@ -151,7 +151,7 @@ public class TopicServiceJpaImpl implements TopicService {
                 chapter.getTopicEntity() == null ||
                 topic.getTopicId() != chapter.getTopicEntity().getTopicId()) {
             IllegalArgumentException exception = new IllegalArgumentException(topic + " " + chapter);
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
         topic.getChapterEntityList().remove(chapter);
@@ -180,7 +180,7 @@ public class TopicServiceJpaImpl implements TopicService {
     public TopicEntity deleteAllChapters(TopicEntity topicEntity) {
         if (Objects.requireNonNull(topicEntity).getTopicId() < 1) {
             IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(topicEntity));
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
         for (ChapterEntity chapterEntity : topicEntity.getChapterEntityList()) {
@@ -212,7 +212,7 @@ public class TopicServiceJpaImpl implements TopicService {
     public TopicDto toDto(TopicEntity topic) {
         if (Objects.requireNonNull(topic).getTopicName().isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(topic));
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
         return new TopicDto(topic);

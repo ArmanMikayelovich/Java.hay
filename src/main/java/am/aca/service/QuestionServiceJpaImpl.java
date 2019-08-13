@@ -41,7 +41,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
     public boolean delete(QuestionEntity question) {
         if (Objects.requireNonNull(question).getQuestionId() < 1) {
             IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(question));
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
         questionRepo.delete(question);
@@ -81,7 +81,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
     public QuestionEntity save(QuestionEntity question) {
         if (Objects.requireNonNull(question).getQuestionText().isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(question));
-            log.warn(exception);
+            log.error(exception);
             throw exception;
         }
         log.debug("Saving question " + question);

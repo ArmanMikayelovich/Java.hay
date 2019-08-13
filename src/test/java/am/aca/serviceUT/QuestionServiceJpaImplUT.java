@@ -1,7 +1,10 @@
-package am.aca.service;
+package am.aca.serviceUT;
 
 import am.aca.entity.QuestionEntity;
 import am.aca.repository.QuestionRepository;
+import am.aca.service.AnswerService;
+import am.aca.service.ClarificationService;
+import am.aca.service.QuestionServiceJpaImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

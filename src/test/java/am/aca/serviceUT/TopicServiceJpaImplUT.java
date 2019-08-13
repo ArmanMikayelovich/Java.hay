@@ -1,9 +1,11 @@
-package am.aca.service;
+package am.aca.serviceUT;
 
 import am.aca.dto.TopicDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.TopicEntity;
 import am.aca.repository.TopicRepository;
+import am.aca.service.ChapterService;
+import am.aca.service.TopicServiceJpaImpl;
 import org.assertj.core.api.HamcrestCondition;
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
