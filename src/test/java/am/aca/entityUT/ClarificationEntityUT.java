@@ -3,16 +3,15 @@ package am.aca.entityUT;
 import am.aca.dto.ClarificationDto;
 import am.aca.entity.ClarificationEntity;
 import am.aca.entity.QuestionEntity;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ClarificationEntityUT {
     private ClarificationEntity clarificationEntity;
-    private ClarificationDto clarificationDto;
     private QuestionEntity questionEntity;
+
 
     @Before
     public void init() {
@@ -31,6 +30,7 @@ public class ClarificationEntityUT {
         assertEquals(clarificationDto.getText(), clarificationEntity.getClarificationText());
     }
 
+    @Test
     public void ClarificationDtoToEntity() {
         ClarificationDto clarificationDto = new ClarificationDto();
         clarificationDto.setQuestionId(1);

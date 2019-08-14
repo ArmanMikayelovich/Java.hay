@@ -11,16 +11,15 @@ import static org.junit.Assert.*;
 
 public class AnswerEntityUT {
     private AnswerEntity answerEntity;
-    private ChapterEntity chapterEntity;
-    private QuestionEntity questionEntity;
+
     @Before
 
     public void init() {
-        chapterEntity = new ChapterEntity();
+        ChapterEntity chapterEntity = new ChapterEntity();
         chapterEntity.setChapterId(1);
         chapterEntity.setChapterName("name");
 
-        questionEntity = new QuestionEntity();
+        QuestionEntity questionEntity = new QuestionEntity();
         questionEntity.setQuestionId(1);
         questionEntity.setQuestionCode("public static void main(String... args) {}");
         questionEntity.setQuestionText("it is true");
@@ -44,7 +43,7 @@ public class AnswerEntityUT {
         assertEquals(answerDto.getQuestionId(), answerEntity.getQuestionEntity().getQuestionId());
         assertEquals(answerDto.getText(), answerEntity.getAnswerText());
     }
-
+    @Test
     public void answerDtoToEntity() {
         AnswerDto dto = new AnswerDto();
         dto.setAccuracy(true);

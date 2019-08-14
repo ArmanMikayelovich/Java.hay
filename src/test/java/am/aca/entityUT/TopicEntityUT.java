@@ -3,7 +3,6 @@ package am.aca.entityUT;
 import am.aca.dto.TopicDto;
 import am.aca.entity.ChapterEntity;
 import am.aca.entity.TopicEntity;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;

@@ -9,7 +9,7 @@ import static org.junit.Assert.assertEquals;
 
 public class ChapterItemEntityUT {
     @Test
-    public void chapterItemEntitytoDtoTest() {
+    public void chapterItemEntityToDtoTest() {
         ChapterItemEntity itemEntity = new ChapterItemEntity();
         itemEntity.setHeadline("lorem ipsum");
         itemEntity.setItemId(1);

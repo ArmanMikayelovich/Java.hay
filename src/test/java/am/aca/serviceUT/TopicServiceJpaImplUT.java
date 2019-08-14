@@ -6,25 +6,21 @@ import am.aca.entity.TopicEntity;
 import am.aca.repository.TopicRepository;
 import am.aca.service.ChapterService;
 import am.aca.service.TopicServiceJpaImpl;
-import org.assertj.core.api.HamcrestCondition;
-import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.internal.hamcrest.HamcrestArgumentMatcher;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TopicServiceJpaImplUT {
@@ -106,6 +102,7 @@ public class TopicServiceJpaImplUT {
 
     @Test(expected = IllegalArgumentException.class)
     public void findWithMinusArgument() {
+        //noinspection NumericOverflow
         topicService.find(Integer.MAX_VALUE + 1);
     }
 
@@ -237,7 +234,7 @@ public class TopicServiceJpaImplUT {
     @Test
     public void findAll() {
         when(topicRepo.findAll()).thenReturn(new ArrayList<>());
-        Assert.assertTrue(topicService.findAll() instanceof Collection);
+        Assert.assertNotNull(topicService.findAll());
         verify(topicRepo, times(1)).findAll();
 
     }
@@ -248,7 +245,7 @@ public class TopicServiceJpaImplUT {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void deleteAllChaptersWithIlegalArgument() {
+    public void deleteAllChaptersWithIllegalArgument() {
         topicService.deleteAllChapters(new TopicEntity());
     }
 
