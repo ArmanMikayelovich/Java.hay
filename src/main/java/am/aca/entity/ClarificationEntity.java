@@ -20,9 +20,10 @@ public class ClarificationEntity {
     public ClarificationEntity(ClarificationDto clarificationDto) {
         setClarificationText(clarificationDto.getText());
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "clarification_id", nullable = false, unique = true,updatable = false)
+    @Column(name = "clarification_id", nullable = false, unique = true, updatable = false)
     private int clarificationId;
 
     @Column(name = "clarification_text", length = 1000, nullable = false)
@@ -40,7 +41,7 @@ public class ClarificationEntity {
         return getClarificationId() == that.getClarificationId() &&
                 getClarificationText().equals(that.getClarificationText()) &&
                 getQuestionEntity() == null && that.getQuestionEntity() == null ||
-                getQuestionEntity().getQuestionId()==that.getQuestionEntity().getQuestionId();
+                getQuestionEntity().getQuestionId() == that.getQuestionEntity().getQuestionId();
     }
 
     @Override
@@ -53,7 +54,7 @@ public class ClarificationEntity {
         return "ClarificationEntity{" +
                 "clarificationId=" + clarificationId +
                 ", clarificationText='" + clarificationText + '\'' +
-                ", questionId=" + questionEntity.getQuestionId() +
+                ", questionId=" + (questionEntity != null ? questionEntity.getQuestionId() : " null") +
                 '}';
     }
 }

@@ -23,9 +23,10 @@ public class AnswerEntity {
         setAnswerText(answer.getText());
         setAccuracy(answer.isAccuracy());
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "answer_id",updatable = false)
+    @Column(name = "answer_id", updatable = false)
     private int answerId;
 
     @Column(name = "answer_text", nullable = false, length = 500)
@@ -66,7 +67,7 @@ public class AnswerEntity {
                 ", answerText='" + answerText + '\'' +
                 ", answerCode='" + answerCode + '\'' +
                 ", accuracy=" + accuracy +
-                ", questionId=" + questionEntity.getQuestionId() +
+                ", questionId=" + (questionEntity != null ? questionEntity.getQuestionId() : " null") +
                 '}';
     }
 }
