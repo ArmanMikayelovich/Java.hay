@@ -21,4 +21,11 @@ public class ChapterDto {
         setChapterName(chapter.getChapterName());
         setTopicId(chapter.getTopicEntity().getTopicId());
     }
+
+    public ChapterDto set(ChapterEntity chapter) {
+        setChapterId(chapter.getChapterId());
+        setChapterName(chapter.getChapterName());
+        setTopicId(chapter.getTopicEntity().getTopicId());
+        return this;
+    }
 }

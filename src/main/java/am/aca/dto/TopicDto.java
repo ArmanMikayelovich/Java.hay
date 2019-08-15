@@ -16,4 +16,10 @@ public class TopicDto {
         setTopicId(topic.getTopicId());
         setTopicName(topic.getTopicName());
     }
+
+    public TopicDto set(TopicEntity topicEntity) {
+        setTopicName(topicEntity.getTopicName());
+        setTopicId(topicEntity.getTopicId());
+        return this;
+    }
 }

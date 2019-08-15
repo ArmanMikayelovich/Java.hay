@@ -1,23 +1,25 @@
 package am.aca;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.boot.SpringApplication;
 
-import static org.junit.Assert.assertTrue;
+import javax.validation.constraints.AssertTrue;
 
-/**
- * Unit test for simple App.
- */
+import static org.mockito.Mockito.*;
+@RunWith(MockitoJUnitRunner.class)
 public class AppTest {
-    private static final Logger log = LogManager.getLogger(AppTest.class);
+    @Mock
+    SpringApplication springApplication;
 
-    /**
-     * Rigorous Test :-)
-     */
+
+
     @Test
-    public void shouldAnswerWithTrue() {
-        log.debug("hello");
-        assertTrue(true);
+    public void test() {
+        Assert.assertTrue(true);
     }
 }

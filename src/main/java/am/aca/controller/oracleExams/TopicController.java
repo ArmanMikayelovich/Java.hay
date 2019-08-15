@@ -2,11 +2,13 @@ package am.aca.controller.oracleExams;
 
 import am.aca.dto.TopicDto;
 
+import javax.servlet.http.HttpServletResponse;
+
 public interface TopicController {
-    public Object getAllTopics();
+    Object getAllTopics();
 
-    public Object postTopic(TopicDto topicDto);
+    Object postTopic(TopicDto topicDto, HttpServletResponse response);
 
-    public Object deleteTopic(TopicDto topic);
+    Object deleteTopic(TopicDto topic, HttpServletResponse response);
 
 }
