@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "chapters", schema = "oracle_exams",
+@Table(name = "chapters", /*schema = "oracle_exams",*/
         indexes = {
                 @Index(name = "chapters_chapter_id_uindex",
                         unique = true,

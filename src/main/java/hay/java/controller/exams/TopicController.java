@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 public interface TopicController {
     Object getAllTopics();
 
-    Object postTopic(TopicDto topicDto, HttpServletResponse response);
+    Object createTopic(TopicDto topicDto, HttpServletResponse response);
 
     Object deleteTopic(TopicDto topic, HttpServletResponse response);
 

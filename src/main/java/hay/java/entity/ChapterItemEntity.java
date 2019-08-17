@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "chapter_items", schema = "oracle_exams",
+@Table(name = "chapter_items",/* schema = "oracle_exams",*/
         indexes = {
                 @Index(name = "chapter_items_item_id_uindex",
                         unique = true,

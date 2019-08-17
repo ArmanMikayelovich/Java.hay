@@ -40,14 +40,14 @@ public class TopicControllerSpringMvcImplTest {
 
     @Test
     public void postTopicWithNullDto() {
-        ErrorObject responseObject = (ErrorObject) topicController.postTopic(null, response);
+        ErrorObject responseObject = (ErrorObject) topicController.createTopic(null, response);
         assertEquals(responseObject.getField(), "TopicDto");
         assertEquals(response.getStatus(), BAD_REQUEST.value());
     }
 
     @Test
     public void postTopicWithEmptyTopicDto() {
-        ErrorObject responseObject = (ErrorObject) topicController.postTopic(new TopicDto(), response);
+        ErrorObject responseObject = (ErrorObject) topicController.createTopic(new TopicDto(), response);
         assertEquals(responseObject.getField(), "topicName");
         assertEquals(response.getStatus(), BAD_REQUEST.value());
     }
@@ -57,7 +57,7 @@ public class TopicControllerSpringMvcImplTest {
         TopicDto topicDto = new TopicDto();
         topicDto.setTopicName("name");
         when(topicService.save(any())).thenReturn(new TopicEntity(topicDto));
-        Object o = topicController.postTopic(topicDto, response);
+        Object o = topicController.createTopic(topicDto, response);
         assertTrue(o instanceof TopicDto);
     }
 

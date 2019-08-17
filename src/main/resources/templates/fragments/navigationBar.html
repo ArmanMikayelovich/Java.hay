@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Navigation Bar</title>
+</head>
+<body>
+<div th:fragment="navigationBar">
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="/home/">Home</a></li>
+                <li><a href="/exams/questions/in-chapter/1">Exams</a></li>
+                <li><a href="/gofund/">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+    <style>@import url(https://fonts.googleapis.com/css?family=Roboto:400,700,500);
+
+    /* Default Styles */
+    html {box-sizing: border-box;}
+    *, *:before, *:after {box-sizing: inherit;}
+    body {
+        background: #fafafa;
+        font-family: "Roboto", sans-serif;
+        font-size: 14px;
+        margin: 0;
+    }
+    a {text-decoration: none;}
+    .container {
+        width: 1000px;
+        margin: auto;
+    }
+
+    /* Navigation Styles */
+    nav {background:rgb(82,48,68,0.5);}
+    nav ul {
+        font-size: 0;
+        margin: 0;
+        padding: 0;
+    }
+    nav ul li {
+        display: inline-block;
+        position: relative;
+    }
+    nav ul li a {
+        color: #fff;
+        display: block;
+        font-size: 14px;
+        padding: 15px 14px;
+        transition: 0.3s linear;
+    }
+    nav ul li:hover {background: #45166b;}
+    nav ul li ul {
+        border-bottom: 5px solid #45166b;
+        display: none;
+        position: absolute;
+        width: 250px;
+    }
+    nav ul li ul li {
+        border-top: 1px solid #444;
+        display: block;
+    }
+    nav ul li ul li:first-child {border-top: none;}
+    nav ul li ul li a {
+        background: #390f5c;
+        display: block;
+        padding: 10px 14px;
+    }
+    nav ul li ul li a:hover {background: #126d9b;}
+    nav .fa.fa-angle-down {margin-left: 6px;}</style>
+</div>
+</body>
+</html>

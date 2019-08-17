@@ -9,15 +9,11 @@
     <title>Show topics and insert them</title>
 </head>
 <body>
-<table>
-    <tr th:each="topic : ${topicList}">
-        <td th:utext="'topicId: ' + ${topic.getTopicId()}">topic id  </td>
-        <td th:utext="'  -   ' + ${topic.getTopicName()}">topic name  </td>
-        <td th:utext = "'  || chapter's count : ' + ${topic.getChapterEntityList().size()}  "> chapter's count</td>
-    </tr>
+<table id="allTopicsTable">
+
 </table>
 <h2>Creating topic.</h2>
-<form method="POST">
+<form action="/exams/topics/create" method="POST">
     <legend>Create new topic.</legend>
     Topic name : <br>
     <input name="topicName" type="text">

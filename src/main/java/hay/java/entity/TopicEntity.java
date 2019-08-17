@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "topics", schema = "oracle_exams",
+@Table(name = "topics", /*schema = "oracle_exams",*/
         indexes = {
                 @Index(name = "topics_topic_id_uindex",
                         unique = true,
@@ -25,9 +25,10 @@ public class TopicEntity {
     public TopicEntity(TopicDto topicDto) {
         setTopicName(topicDto.getTopicName());
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "topic_id",updatable = false)
+    @Column(name = "topic_id", updatable = false)
     private int topicId;
 
 

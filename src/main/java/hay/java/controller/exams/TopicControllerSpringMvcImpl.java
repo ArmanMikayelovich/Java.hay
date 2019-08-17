@@ -4,6 +4,7 @@ import hay.java.dto.TopicDto;
 import hay.java.entity.TopicEntity;
 import hay.java.service.TopicService;
 import hay.java.service.util.ErrorObject;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,7 +38,7 @@ public class TopicControllerSpringMvcImpl implements TopicController {
     }
 
     /**
-     * <b>Path</b> /exams/topics <br>
+     * <b>Path</b> /exams/topics/create <br>
      * <b>Method</b> - POST <p>
      * <b>produces</b> JSON
      *
@@ -47,8 +48,8 @@ public class TopicControllerSpringMvcImpl implements TopicController {
      * @see ErrorObject
      */
     @Override
-    @RequestMapping(method = RequestMethod.POST)
-    public Object postTopic(@RequestBody TopicDto topicDto, HttpServletResponse response) {
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    public Object createTopic(@RequestBody TopicDto topicDto, HttpServletResponse response) {
         if (topicDto == null) {
             response.setStatus(BAD_REQUEST.value());
             return new ErrorObject("TopicDto", "Null topicDto");
@@ -62,18 +63,20 @@ public class TopicControllerSpringMvcImpl implements TopicController {
             return errorObject;
         }
     }
+
     /**
      * <b>Path</b> /exams/topics <br>
      * <b>Method</b> - POST <p>
      * <b>produces</b> JSON
      *
-     * @param topic <b>NonNull</b> with not empty name
+     * @param topic    <b>NonNull</b> with not empty name
      * @param response input from Spring MVC
      * @return saved topicDto with ID, or ErrorObject
      * @see ErrorObject
      */
     @Override
-    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE,
+            consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
     public Object deleteTopic(@RequestBody TopicDto topic, HttpServletResponse response) {
         if (topic == null) {
             ErrorObject errorObject = new ErrorObject("TopicDto", "topicDto is null");

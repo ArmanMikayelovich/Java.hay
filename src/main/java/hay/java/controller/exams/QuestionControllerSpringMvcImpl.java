@@ -122,7 +122,7 @@ public class QuestionControllerSpringMvcImpl implements QuestionController {
     public Object getAllQuestionsInChapter(@PathVariable Integer id, HttpServletResponse response) {
         if (id < 1) {
             response.setStatus(BAD_REQUEST.value());
-            return new ErrorObject("id", "Chapter with id  " + id + " not found");
+            return new ErrorObject("id", "chapter id must be > 0");
         }
         Optional<ChapterEntity> byId = chapterService.findById(id);
         if (byId.isPresent()) {

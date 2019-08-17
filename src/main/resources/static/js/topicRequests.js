@@ -1,14 +1,28 @@
 function deleteTopic() {
-    let id = document.getElementById("deleteTopicId").value;
-    $.ajax({
-        url: '/exams/topics/' + id,
-        method: 'DELETE',
-        error: function (error) {
-            alert(JSON.stringify(error));
-        },
-        success: function (success) {
-            document.body.innerHTML = success;
+    let topicId = document.getElementById("deleteTopicId").value;
+    var topic = {
 
+    };
+    make(topic);
+
+
+    function make(topic) {
+        topic.topicId = topicId;
+        topic.topicName = '';
+    };
+
+    $.ajax({
+        url: '/exams/topics/delete',
+        contentType : 'application/json; charset=utf-8',
+        dataType:'json',
+        method: 'DELETE',
+        data: JSON.stringify(topic),
+
+        complete: function(response,textStatus) {
+            return alert("Hey: " +response.responseText);
         }
+
     })
+
 }
+
