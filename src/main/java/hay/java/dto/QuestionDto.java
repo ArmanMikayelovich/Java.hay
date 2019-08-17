@@ -28,4 +28,12 @@ public class QuestionDto {
         setChapterId(question.getChapterEntity().getChapterId());
     }
 
+    public QuestionDto set(QuestionEntity question) {
+        setId(question.getQuestionId());
+        setQuestionText(question.getQuestionText());
+        setQuestionCode(question.getQuestionCode());
+        setChapterId(question.getChapterEntity().getChapterId());
+        return this;
+    }
+
 }

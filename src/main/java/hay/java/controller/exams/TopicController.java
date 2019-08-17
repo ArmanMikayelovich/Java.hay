@@ -1,4 +1,4 @@
-package hay.java.controller.oracleExams;
+package hay.java.controller.exams;
 
 import hay.java.dto.TopicDto;
 

@@ -1,4 +1,4 @@
-package hay.java.controller.oracleExams;
+package hay.java.controller.exams;
 
 import hay.java.dto.AnswerDto;
 import hay.java.dto.QuestionDto;
@@ -12,7 +12,7 @@ public interface AnswerController {
 
     Object deleteAllAnswersForQuestion(QuestionDto question, HttpServletResponse response);
 
-    Object getAnswerById(Integer answerId, HttpServletResponse response);
+    Object getAnswerById(int id, HttpServletResponse response);
 
-    Object getAllAnswersForQuestion(Integer questionId, HttpServletResponse response);
+    Object getAllAnswersForQuestion(int id, HttpServletResponse response);
 }

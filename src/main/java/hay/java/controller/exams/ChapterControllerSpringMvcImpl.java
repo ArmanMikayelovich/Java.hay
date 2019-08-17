@@ -1,4 +1,4 @@
-package hay.java.controller.oracleExams;
+package hay.java.controller.exams;
 
 import hay.java.dto.ChapterDto;
 import hay.java.dto.TopicDto;
@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @RestController
-@RequestMapping(value = "oracle-exams/chapters")
+@RequestMapping(value = "exams/chapters")
 public class ChapterControllerSpringMvcImpl implements ChapterController {
     private final ChapterService chapterService;
     private final TopicService topicService;
@@ -29,7 +29,7 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/chapters <br>
+     * <b>Path</b> /exams/chapters <br>
      * <b>Method</b> - GET <p>
      * <b>produces</b> JSON
      *
@@ -43,12 +43,12 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/chapters <br>
+     * <b>Path</b> /exams/chapters <br>
      * <b>Method</b> - POST <p>
      * <b>produces</b> JSON
      * Return all chapter that have relationship to Topic
      *
-     * @param topicId  <b>NonNull</b> with npot empty name
+     * @param topicId  <b>NonNull</b> with not empty name
      * @param response input from Spring MVC
      * @return if topic found, returns List<ChapterDto>, else  ErrorObject
      * @see ErrorObject
@@ -75,7 +75,7 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/chapters/{chapterId} <br>
+     * <b>Path</b> /exams/chapters/{chapterId} <br>
      * <b>Method</b> - GET <p>
      * <b>produces</b> JSON
      * Find chapter by id
@@ -102,7 +102,7 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/chapters/add <br>
+     * <b>Path</b> /exams/chapters/add <br>
      * <b>Method</b> - POST <p>
      * <b>produces</b> JSON
      * create Chapter and attach to topic
@@ -142,7 +142,7 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/chapters/delete <br>
+     * <b>Path</b> /exams/chapters/delete <br>
      * <b>Method</b> - DELETE <p>
      * <b>produces</b> JSON
      * Delete chapter by id.
@@ -176,7 +176,7 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/chapters/delete-all-of-topic <br>
+     * <b>Path</b> /exams/chapters/delete-all-of-topic <br>
      * <b>Method</b> - DELETE <p>
      * <b>produces</b> JSON
      * Delete all chapter of topic,
@@ -208,7 +208,7 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/chapters/update <br>
+     * <b>Path</b> /exams/chapters/update <br>
      * <b>Method</b> - PUT <p>
      * <b>produces</b> JSON
      * Change name of chapter.

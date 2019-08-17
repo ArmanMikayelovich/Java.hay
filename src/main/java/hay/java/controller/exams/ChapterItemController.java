@@ -1,4 +1,4 @@
-package hay.java.controller.oracleExams;
+package hay.java.controller.exams;
 
 import hay.java.dto.ChapterDto;
 import hay.java.dto.ChapterItemDto;
@@ -6,7 +6,7 @@ import hay.java.dto.ChapterItemDto;
 import javax.servlet.http.HttpServletResponse;
 
 public interface ChapterItemController {
-     Object createItemInChapter(ChapterItemDto item, HttpServletResponse response);
+    Object createItemInChapter(ChapterItemDto item, HttpServletResponse response);
 
     Object changeItem(ChapterItemDto item, HttpServletResponse response);
 
@@ -14,12 +14,9 @@ public interface ChapterItemController {
 
     Object deleteAllItemsInChapter(ChapterDto chapter, HttpServletResponse response);
 
-    Object getAllItemsInChapter(ChapterDto chapter, HttpServletResponse response);
+    Object getAllItemsInChapter(int chapterId, HttpServletResponse response);
 
-    Object getItemById(Integer id);
-
-
-
+    Object getItemById(int id, HttpServletResponse response);
 
 
 }

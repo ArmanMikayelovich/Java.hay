@@ -1,4 +1,4 @@
-package hay.java.controller.oracleExams;
+package hay.java.controller.exams;
 
 import hay.java.dto.TopicDto;
 import hay.java.entity.TopicEntity;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RestController
-@RequestMapping(value = "oracle-exams/topics")
+@RequestMapping(value = "exams/topics")
 public class TopicControllerSpringMvcImpl implements TopicController {
     private final TopicService topicService;
 
@@ -24,7 +24,7 @@ public class TopicControllerSpringMvcImpl implements TopicController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/topics <br>
+     * <b>Path</b> /exams/topics <br>
      * <b>Method</b> - GET <p>
      * <b>produces</b> JSON
      *
@@ -37,11 +37,11 @@ public class TopicControllerSpringMvcImpl implements TopicController {
     }
 
     /**
-     * <b>Path</b> /oracle-exams/topics <br>
+     * <b>Path</b> /exams/topics <br>
      * <b>Method</b> - POST <p>
      * <b>produces</b> JSON
      *
-     * @param topicDto <b>NonNull</b> with npot empty name
+     * @param topicDto <b>NonNull</b> with not empty name
      * @param response input from Spring MVC
      * @return saved topicDto with ID, or ErrorObject
      * @see ErrorObject
@@ -63,11 +63,11 @@ public class TopicControllerSpringMvcImpl implements TopicController {
         }
     }
     /**
-     * <b>Path</b> /oracle-exams/topics <br>
+     * <b>Path</b> /exams/topics <br>
      * <b>Method</b> - POST <p>
      * <b>produces</b> JSON
      *
-     * @param topic <b>NonNull</b> with npot empty name
+     * @param topic <b>NonNull</b> with not empty name
      * @param response input from Spring MVC
      * @return saved topicDto with ID, or ErrorObject
      * @see ErrorObject

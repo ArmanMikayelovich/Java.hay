@@ -1,6 +1,6 @@
 package hay.java.contorllerUT.oracleExamsUT;
 
-import hay.java.controller.oracleExams.TopicControllerSpringMvcImpl;
+import hay.java.controller.exams.TopicControllerSpringMvcImpl;
 import hay.java.dto.TopicDto;
 import hay.java.entity.TopicEntity;
 import hay.java.service.TopicService;

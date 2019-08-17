@@ -22,4 +22,11 @@ public class ChapterItemDto {
         setHeadline(item.getHeadline());
         setChapterId(item.getChapterEntity().getChapterId());
     }
+
+    public ChapterItemDto set(ChapterItemEntity item) {
+        setId(item.getItemId());
+        setHeadline(item.getHeadline());
+        setChapterId(item.getChapterEntity().getChapterId());
+        return this;
+    }
 }
