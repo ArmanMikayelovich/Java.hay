@@ -12,12 +12,13 @@
 <table id="allTopicsTable">
 
 </table>
+
 <h2>Creating topic.</h2>
 <form action="/exams/topics/create" method="POST">
     <legend>Create new topic.</legend>
     Topic name : <br>
-    <input name="topicName" type="text">
-    <input type="button" value="Send">
+    <input id="createTopicName" name="topicName" type="text">
+    <input type="submit" value="Send">
 </form>
 <br>
 <h2>Deleting topic.</h2>
@@ -27,6 +28,7 @@
     <input name="topic id" id="deleteTopicId" type="number">
     <input type="button" value="Delete" onclick="deleteTopic()">
 </form>
+
 
 
 </body>

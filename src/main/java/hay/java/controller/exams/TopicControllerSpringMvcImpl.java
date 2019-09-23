@@ -50,7 +50,7 @@ public class TopicControllerSpringMvcImpl implements TopicController {
     @Override
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public Object createTopic(@RequestBody TopicDto topicDto, HttpServletResponse response) {
-        if (topicDto == null) {
+        if (topicDto == null || topicDto.getTopicId() < 1) {
             response.setStatus(BAD_REQUEST.value());
             return new ErrorObject("TopicDto", "Null topicDto");
         }

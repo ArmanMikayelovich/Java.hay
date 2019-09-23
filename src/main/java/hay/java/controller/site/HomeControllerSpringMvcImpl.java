@@ -27,4 +27,25 @@ public class HomeControllerSpringMvcImpl implements HomeController {
         ModelAndView model = new ModelAndView("exams/topics");
         return model;
     }
+
+    @RequestMapping(value = "/chapters", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView testChapterPage(HttpServletResponse response) {
+        String viewName;
+        ModelAndView model = new ModelAndView("exams/chapters");
+        return model;
+    }
+
+    @RequestMapping(value = "/questions", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView testQuestionPage(HttpServletResponse response) {
+        String viewName;
+        ModelAndView model = new ModelAndView("exams/questions");
+        return model;
+    }
+
+    @RequestMapping(value = "/answers", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView testAnswerPage(HttpServletResponse response) {
+        String viewName;
+        ModelAndView model = new ModelAndView("exams/answers");
+        return model;
+    }
 }

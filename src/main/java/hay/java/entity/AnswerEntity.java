@@ -38,7 +38,7 @@ public class AnswerEntity {
     @Column(name = "accuracy", nullable = false)
     private boolean accuracy = false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", referencedColumnName = "question_id")
     private QuestionEntity questionEntity;
 

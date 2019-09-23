@@ -29,7 +29,7 @@ public class ClarificationEntity {
     @Column(name = "clarification_text", length = 1000, nullable = false)
     private String clarificationText;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", referencedColumnName = "question_id", nullable = false)
     private QuestionEntity questionEntity;
 

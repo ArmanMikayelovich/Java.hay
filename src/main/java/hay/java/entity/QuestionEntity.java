@@ -41,13 +41,14 @@ public class QuestionEntity implements Serializable {
     @Column(name = "question_code", length = 1000)
     private String questionCode;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "chapter_id", referencedColumnName = "chapter_id")
     private ChapterEntity chapterEntity;
 
-    @OneToMany(mappedBy = "questionEntity", orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "questionEntity", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<AnswerEntity> answerEntityList = new ArrayList<>();
-    @OneToOne(mappedBy = "questionEntity", orphanRemoval = true, cascade = CascadeType.REMOVE)
+
+    @OneToOne(mappedBy = "questionEntity", orphanRemoval = true, cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private ClarificationEntity clarificationEntity;
 
     @Override
@@ -78,7 +79,7 @@ public class QuestionEntity implements Serializable {
                 ", questionCode='" + questionCode + '\'' +
                 ", chapterId=" + (chapterEntity != null ? chapterEntity.getChapterId() : "null") +
                 ", answerEntityList.size=" + answerEntityList.size() +
-                ", clarificationId=" +(clarificationEntity!= null ? clarificationEntity.getClarificationId() : "null") +
+                ", clarificationId=" + (clarificationEntity != null ? clarificationEntity.getClarificationId() : "null") +
                 '}';
     }
 }

@@ -33,7 +33,7 @@ public class ChapterEntity {
     @Column(name = "chapter_name", length = 256, nullable = false)
     private String chapterName;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "topic_id", referencedColumnName = "topic_id", nullable = false)
     private TopicEntity topicEntity;
 
