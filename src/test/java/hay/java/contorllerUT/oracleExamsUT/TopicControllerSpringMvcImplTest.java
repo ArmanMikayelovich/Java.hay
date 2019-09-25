@@ -3,7 +3,7 @@ package hay.java.contorllerUT.oracleExamsUT;
 import hay.java.controller.exams.TopicControllerSpringMvcImpl;
 import hay.java.dto.TopicDto;
 import hay.java.entity.TopicEntity;
-import hay.java.service.TopicService;
+import hay.java.service.interfaces.TopicService;
 import hay.java.service.util.ErrorObject;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package hay.java.controller.exams;
+package hay.java.controller.exams.interfaces;
 
 import hay.java.dto.ChapterDto;
 import hay.java.dto.ChapterItemDto;

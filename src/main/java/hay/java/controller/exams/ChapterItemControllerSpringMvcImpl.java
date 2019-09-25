@@ -1,11 +1,12 @@
 package hay.java.controller.exams;
 
+import hay.java.controller.exams.interfaces.ChapterItemController;
 import hay.java.dto.ChapterDto;
 import hay.java.dto.ChapterItemDto;
 import hay.java.entity.ChapterEntity;
 import hay.java.entity.ChapterItemEntity;
-import hay.java.service.ChapterItemService;
-import hay.java.service.ChapterService;
+import hay.java.service.interfaces.ChapterItemService;
+import hay.java.service.interfaces.ChapterService;
 import hay.java.service.util.ErrorObject;
 import org.springframework.web.bind.annotation.*;
 

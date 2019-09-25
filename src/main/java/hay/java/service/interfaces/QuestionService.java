@@ -1,4 +1,4 @@
-package hay.java.service;
+package hay.java.service.interfaces;
 
 import hay.java.dto.QuestionDto;
 import hay.java.entity.AnswerEntity;
@@ -35,6 +35,7 @@ public interface QuestionService {
 
     List<QuestionDto> toDto(List<QuestionEntity> questionEntityList);
 
+    QuestionDto toDto(QuestionEntity questionEntity);
 
 
 

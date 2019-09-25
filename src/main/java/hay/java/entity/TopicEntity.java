@@ -35,7 +35,7 @@ public class TopicEntity {
     @Column(name = "topic_name", length = 256, nullable = false)
     private String topicName;
 
-    @OneToMany(mappedBy = "topicEntity", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "topicEntity", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY   , orphanRemoval = true)
     private List<ChapterEntity> chapterEntityList = new ArrayList<>();
 
 

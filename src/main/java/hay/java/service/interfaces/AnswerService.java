@@ -1,4 +1,4 @@
-package hay.java.service;
+package hay.java.service.interfaces;
 
 import hay.java.dto.AnswerDto;
 import hay.java.entity.AnswerEntity;
@@ -25,4 +25,7 @@ public interface AnswerService {
     AnswerEntity changeAccuracy(AnswerEntity answer, boolean accuracy);
 
     List<AnswerDto> toDto(List<AnswerEntity> answerEntityList);
+
+    AnswerDto toDto(AnswerEntity answer);
+
 }

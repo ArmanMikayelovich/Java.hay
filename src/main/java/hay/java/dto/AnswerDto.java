@@ -28,13 +28,6 @@ public class AnswerDto {
         setQuestionId(answer.getQuestionEntity().getQuestionId());
     }
 
-    public AnswerDto set(AnswerEntity answer) {
-        setId(answer.getAnswerId());
-        setText(answer.getAnswerText());
-        setCode(answer.getAnswerCode());
-        setAccuracy(answer.isAccuracy());
-        setQuestionId(answer.getQuestionEntity().getQuestionId());
-        return this;
-    }
+
 
 }

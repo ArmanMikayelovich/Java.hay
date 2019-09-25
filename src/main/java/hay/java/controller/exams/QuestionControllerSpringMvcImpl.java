@@ -1,11 +1,12 @@
 package hay.java.controller.exams;
 
+import hay.java.controller.exams.interfaces.QuestionController;
 import hay.java.dto.ChapterDto;
 import hay.java.dto.QuestionDto;
 import hay.java.entity.ChapterEntity;
 import hay.java.entity.QuestionEntity;
-import hay.java.service.ChapterService;
-import hay.java.service.QuestionService;
+import hay.java.service.interfaces.ChapterService;
+import hay.java.service.interfaces.QuestionService;
 import hay.java.service.util.ErrorObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;

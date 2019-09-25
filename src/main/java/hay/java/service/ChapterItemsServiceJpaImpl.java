@@ -3,6 +3,7 @@ package hay.java.service;
 import hay.java.dto.ChapterItemDto;
 import hay.java.entity.ChapterItemEntity;
 import hay.java.repository.ChapterItemRepository;
+import hay.java.service.interfaces.ChapterItemService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;

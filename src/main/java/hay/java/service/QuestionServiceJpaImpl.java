@@ -5,6 +5,9 @@ import hay.java.entity.AnswerEntity;
 import hay.java.entity.ClarificationEntity;
 import hay.java.entity.QuestionEntity;
 import hay.java.repository.QuestionRepository;
+import hay.java.service.interfaces.AnswerService;
+import hay.java.service.interfaces.ClarificationService;
+import hay.java.service.interfaces.QuestionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -249,6 +252,11 @@ public class QuestionServiceJpaImpl implements QuestionService {
         QuestionEntity save = questionRepo.save(question);
         log.debug("Clarification of " + question + "changed");
         return save;
+    }
+
+    @Override
+    public QuestionDto toDto(QuestionEntity questionEntity) {
+        return new QuestionDto(questionEntity);
     }
 
     @Override

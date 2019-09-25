@@ -1,4 +1,4 @@
-package hay.java.service;
+package hay.java.service.interfaces;
 
 import hay.java.dto.ChapterDto;
 import hay.java.entity.ChapterEntity;

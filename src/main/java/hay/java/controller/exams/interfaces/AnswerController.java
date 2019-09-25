@@ -1,4 +1,4 @@
-package hay.java.controller.exams;
+package hay.java.controller.exams.interfaces;
 
 import hay.java.dto.AnswerDto;
 import hay.java.dto.QuestionDto;

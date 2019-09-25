@@ -1,8 +1,9 @@
 package hay.java.controller.exams;
 
+import hay.java.controller.exams.interfaces.TopicController;
 import hay.java.dto.TopicDto;
 import hay.java.entity.TopicEntity;
-import hay.java.service.TopicService;
+import hay.java.service.interfaces.TopicService;
 import hay.java.service.util.ErrorObject;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;

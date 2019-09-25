@@ -2,6 +2,7 @@ package hay.java.service;
 
 import hay.java.entity.ClarificationEntity;
 import hay.java.repository.ClarificationRepository;
+import hay.java.service.interfaces.ClarificationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;

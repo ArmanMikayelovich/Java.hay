@@ -1,4 +1,4 @@
-package hay.java.controller.site;
+package hay.java.controller.site.interfaces;
 
 import org.springframework.web.servlet.ModelAndView;
 

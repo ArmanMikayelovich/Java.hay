@@ -3,6 +3,7 @@ package hay.java.service;
 import hay.java.dto.AnswerDto;
 import hay.java.entity.AnswerEntity;
 import hay.java.repository.AnswerRepository;
+import hay.java.service.interfaces.AnswerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
@@ -177,5 +178,10 @@ public class AnswerServiceJpaImpl implements AnswerService {
     @Override
     public List<AnswerDto> toDto(List<AnswerEntity> answerEntityList) {
         return answerEntityList.stream().map(AnswerDto::new).collect(Collectors.toList());
+    }
+
+    public AnswerDto toDto(AnswerEntity answer) {
+        AnswerDto answerDto = new AnswerDto(answer);
+        return answerDto;
     }
 }

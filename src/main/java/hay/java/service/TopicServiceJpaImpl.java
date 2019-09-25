@@ -4,6 +4,8 @@ import hay.java.dto.TopicDto;
 import hay.java.entity.ChapterEntity;
 import hay.java.entity.TopicEntity;
 import hay.java.repository.TopicRepository;
+import hay.java.service.interfaces.ChapterService;
+import hay.java.service.interfaces.TopicService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
