@@ -1,8 +1,7 @@
+"use strict";
 function deleteTopic() {
     let topicId = document.getElementById("deleteTopicId").value;
-    var topic = {};
-    make(topic);
-
+    let topic =  makeTopicDto(topicId,null);
 
     $.ajax({
         url: '/exams/topics/delete',
@@ -18,19 +17,29 @@ function deleteTopic() {
     })
 
 }
-
-function makeTopic(id, name) {
-    let topic;
-    topic.topicId = topicId;
-    topic.topicName = '';
+//make JS object TopicDto
+function makeTopicDto(id, name) {
+    let topic = {topicId :id,topicName : name};
+    topic.topicId = id;
+    topic.topicName = name;
     return topic
 }
 
+
 function createTopic() {
     let topicName = document.getElementById("createTopicName").value;
-    var topic = make(null,topicName);
+    let topic = makeTopicDto(null,topicName);
+    $.ajax({
+        url: '/exams/topics/create',
+        contentType: 'application/json; charset=utf-8',
+        dataType: 'json',
+        method: 'POST',
+        data: JSON.stringify(topic),
 
+        complete: response => {
+            console.log(response);
+        }
 
-
+    });
 }
 

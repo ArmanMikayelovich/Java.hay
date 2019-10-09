@@ -51,7 +51,7 @@ public class AnswerControllerSpringMcvImpl implements AnswerController {
             QuestionEntity questionEntity = byId.get();
             AnswerEntity answerEntity = new AnswerEntity(answer);
             questionService.addAnswer(questionEntity, answerEntity);
-            return answer.set(answerEntity);
+            return answerService.toDto(answerEntity);
         }
 
         response.setStatus(NOT_FOUND.value());

@@ -17,8 +17,7 @@ public class HomeControllerSpringMvcImpl implements HomeController {
     @Override
     @RequestMapping(value = "",method = RequestMethod.GET,produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getHomePage(HttpServletResponse response) {
-        String viewName;
-        ModelAndView model = new ModelAndView("homePage");
+        ModelAndView model = new ModelAndView("test");
         return model;
     }
 

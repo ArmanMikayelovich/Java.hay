@@ -49,7 +49,7 @@ public class TopicControllerSpringMvcImpl implements TopicController {
      * @see ErrorObject
      */
     @Override
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     public Object createTopic(@RequestBody TopicDto topicDto, HttpServletResponse response) {
         if (topicDto == null || topicDto.getTopicId() < 1) {
             response.setStatus(BAD_REQUEST.value());
