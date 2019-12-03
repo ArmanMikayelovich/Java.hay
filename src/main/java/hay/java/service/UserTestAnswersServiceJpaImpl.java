@@ -12,6 +12,7 @@ import hay.java.service.interfaces.ChapterService;
 import hay.java.service.interfaces.QuestionService;
 import hay.java.service.interfaces.UserTestAnswersService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -34,6 +35,7 @@ public class UserTestAnswersServiceJpaImpl implements UserTestAnswersService {
     }
 
     @Override
+    @Transactional
     public boolean add(UserDto user, QuestionDto question, AnswerDto answer) {
         Optional<UserEntity> userById = userRepo.findById(user.getId());
         if (!userById.isPresent()) return false;
@@ -52,6 +54,7 @@ public class UserTestAnswersServiceJpaImpl implements UserTestAnswersService {
     }
 
     @Override
+    @Transactional
     public Optional<AnswerDto> getAnswerForOneQuestion(UserDto user, QuestionDto question) {
         Optional<UserEntity> userById = userRepo.findById(user.getId());
         if (!userById.isPresent()) return Optional.empty();
@@ -67,6 +70,7 @@ public class UserTestAnswersServiceJpaImpl implements UserTestAnswersService {
     }
 
     @Override
+    @Transactional
     public Map<QuestionDto, AnswerDto> getAnswersForOneChapter(UserDto user, ChapterDto chapter) {
         Optional<UserEntity> userById = userRepo.findById(user.getId());
         if (!userById.isPresent()) return Collections.emptyMap();

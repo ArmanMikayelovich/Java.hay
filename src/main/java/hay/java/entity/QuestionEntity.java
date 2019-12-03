@@ -13,9 +13,9 @@ import java.util.Objects;
 @Entity
 @Table(name = "questions", /*schema = "oracle_exams",*/
         indexes = {
-                @Index(name = "questions_chapter_id_index",
+                @Index(name = "questions_chapter_id_IDX",
                         columnList = "chapter_id"),
-                @Index(name = "questions_question_id_uindex",
+                @Index(name = "question_id_IDX",
                         unique = true,
                         columnList = "question_id")
         })
@@ -45,10 +45,12 @@ public class QuestionEntity implements Serializable {
     @JoinColumn(name = "chapter_id", referencedColumnName = "chapter_id")
     private ChapterEntity chapterEntity;
 
-    @OneToMany(mappedBy = "questionEntity", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "questionEntity", orphanRemoval = true,
+            fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<AnswerEntity> answerEntityList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "questionEntity", orphanRemoval = true, cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "questionEntity", orphanRemoval = true,
+            fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private ClarificationEntity clarificationEntity;
 
     @Override

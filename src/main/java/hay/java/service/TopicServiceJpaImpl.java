@@ -9,7 +9,9 @@ import hay.java.service.interfaces.TopicService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.text.MessageFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -28,6 +30,7 @@ public class TopicServiceJpaImpl implements TopicService {
     }
 
     @Override
+    @Transactional
     public TopicEntity save(TopicEntity topicEntity) {
         log.debug("saving " + topicEntity);
         if (topicEntity == null || topicEntity.getTopicName() == null || topicEntity.getTopicName().equals("")) {
@@ -40,6 +43,7 @@ public class TopicServiceJpaImpl implements TopicService {
     }
 
     @Override
+    @Transactional
     public boolean deleteById(Integer id) {
         log.debug("deleting topic by id");
         if (Objects.requireNonNull(id) < 1) {
@@ -60,6 +64,7 @@ public class TopicServiceJpaImpl implements TopicService {
     }
 
     @Override
+    @Transactional
     public boolean delete(TopicEntity topic) {
         log.debug("deleting topic" + topic);
         if (Objects.requireNonNull(topic).getTopicId() < 1) {
@@ -73,6 +78,7 @@ public class TopicServiceJpaImpl implements TopicService {
     }
 
     @Override
+    @Transactional
     public Optional<TopicEntity> find(int id) {
         if (id < 1) {
             IllegalArgumentException exception = new IllegalArgumentException("id must be > 0, id - " + id);
@@ -95,8 +101,9 @@ public class TopicServiceJpaImpl implements TopicService {
      * @return saved TopicEntity from DB.
      */
     @Override
+    @Transactional
     public TopicEntity changeName(TopicEntity topic, String name) {
-        log.debug("Changing name of topic" + topic + "to " + name);
+        log.debug(String.format("Changing name of topic%sto %s", topic, name));
         if (Objects.requireNonNull(topic).getTopicId() < 1 | Objects.requireNonNull(name).isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(topic + ", name  - " + name);
             log.error(exception);
@@ -105,7 +112,7 @@ public class TopicServiceJpaImpl implements TopicService {
 
         topic.setTopicName(name);
         TopicEntity saved = topicRepo.save(topic);
-        log.debug("Successfully changed name of topic with id" + topic.getTopicId());
+        log.debug(String.format("Successfully changed name of topic with id%d", topic.getTopicId()));
         return saved;
     }
 
@@ -117,8 +124,9 @@ public class TopicServiceJpaImpl implements TopicService {
      * @throws NullPointerException
      */
     @Override
+    @Transactional
     public TopicEntity addChapter(TopicEntity topic, ChapterEntity chapter) {
-        log.debug("adding chapter " + chapter + "to Topic " + topic);
+        log.debug(String.format("adding chapter %sto Topic %s", chapter, topic));
         if (Objects.requireNonNull(topic).getTopicId() < 1
                 | Objects.requireNonNull(chapter).getChapterName().isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(
@@ -131,7 +139,7 @@ public class TopicServiceJpaImpl implements TopicService {
         chapter.setTopicEntity(topic);
         chapterService.save(chapter);
         TopicEntity saved = topicRepo.save(topic);
-        log.debug("successfully added " + chapter + "to " + topic);
+        log.debug(MessageFormat.format("successfully added {0}to {1}", chapter, topic));
         return saved;
     }
 
@@ -146,9 +154,10 @@ public class TopicServiceJpaImpl implements TopicService {
      * @throws NullPointerException
      */
     @Override
+    @Transactional
     public TopicEntity deleteChapter(TopicEntity topic, ChapterEntity chapter) {
-        log.debug("deleting " + chapter + " from " + topic);
-        if (Objects.requireNonNull(topic).getTopicId() < 1 |
+        log.debug(String.format("deleting %s from %s", chapter, topic));
+        if (Objects.requireNonNull(topic).getTopicId() < 1 ||
                 Objects.requireNonNull(chapter).getChapterId() < 1 ||
                 chapter.getTopicEntity() == null ||
                 topic.getTopicId() != chapter.getTopicEntity().getTopicId()) {
@@ -159,7 +168,7 @@ public class TopicServiceJpaImpl implements TopicService {
         topic.getChapterEntityList().remove(chapter);
         chapterService.delete(chapter);
         TopicEntity saved = topicRepo.save(topic);
-        log.debug("succesfully added " + chapter + " to " + topic);
+        log.debug(String.format("succesfully added %s to %s", chapter, topic));
         return saved;
     }
 
@@ -174,11 +183,12 @@ public class TopicServiceJpaImpl implements TopicService {
 
     /**
      * @param topicEntity must be <b>NonNull</b> with legal id(id>0)
-     * @return
+     * @return @see {@link TopicEntity}
      * @throws NullPointerException     when argument is null
      * @throws IllegalArgumentException when topic id < 0
      */
     @Override
+    @Transactional
     public TopicEntity deleteAllChapters(TopicEntity topicEntity) {
         if (Objects.requireNonNull(topicEntity).getTopicId() < 1) {
             IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(topicEntity));
@@ -193,6 +203,7 @@ public class TopicServiceJpaImpl implements TopicService {
     }
 
     @Override
+    @Transactional
     public boolean deleteAllTopics() {
         log.debug("deleting all topics.");
         for (TopicEntity topic : topicRepo.findAll()) {

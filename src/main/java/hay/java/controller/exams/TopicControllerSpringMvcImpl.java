@@ -51,10 +51,7 @@ public class TopicControllerSpringMvcImpl implements TopicController {
     @Override
     @RequestMapping(value = "/create", method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     public Object createTopic(@RequestBody TopicDto topicDto, HttpServletResponse response) {
-        if (topicDto == null || topicDto.getTopicId() < 1) {
-            response.setStatus(BAD_REQUEST.value());
-            return new ErrorObject("TopicDto", "Null topicDto");
-        }
+
         if (topicDto.getTopicName() != null && !topicDto.getTopicName().equals("")) {
             TopicEntity save = topicService.save(new TopicEntity(topicDto));
             return topicDto.set(save);

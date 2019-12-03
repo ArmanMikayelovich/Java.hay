@@ -3,6 +3,8 @@ package hay.java.entity;
 import hay.java.dto.AnswerDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "answers",/* schema = "oracle_exams",*/
         indexes = {
-                @Index(name = "answers_answer_id_uindex",
+                @Index(name = "answer_id_IDX",
                         unique = true,
                         columnList = "answer_id")
         })
@@ -40,6 +42,7 @@ public class AnswerEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", referencedColumnName = "question_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private QuestionEntity questionEntity;
 
     @Override
@@ -57,7 +60,9 @@ public class AnswerEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getAnswerId(), getAnswerText(), getAnswerCode(), isAccuracy(), getQuestionEntity().getQuestionId());
+        return Objects.hash(getAnswerId(), getAnswerText(),
+                getAnswerCode(), isAccuracy(),
+                getQuestionEntity().getQuestionId());
     }
 
     @Override

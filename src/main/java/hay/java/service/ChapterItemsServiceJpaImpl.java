@@ -7,6 +7,7 @@ import hay.java.service.interfaces.ChapterItemService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -31,6 +32,7 @@ public class ChapterItemsServiceJpaImpl implements ChapterItemService {
      * @throws NullPointerException when argument is null.
      */
     @Override
+    @Transactional
     public ChapterItemEntity save(ChapterItemEntity itemEntity) {
         log.debug("saving " + itemEntity);
         Objects.requireNonNull(itemEntity);
@@ -47,6 +49,7 @@ public class ChapterItemsServiceJpaImpl implements ChapterItemService {
      * @throws IllegalArgumentException when id < 1
      */
     @Override
+    @Transactional
     public Optional<ChapterItemEntity> findOneById(Integer id) {
         log.debug("searching ChapterItem by id " + id);
         if (id < 1) {
@@ -68,6 +71,7 @@ public class ChapterItemsServiceJpaImpl implements ChapterItemService {
      * @return List<ChapterItemEntity>
      */
     @Override
+    @Transactional
     public List<ChapterItemEntity> findAll() {
 
         log.debug("requested All ChapterItems.");
@@ -84,6 +88,7 @@ public class ChapterItemsServiceJpaImpl implements ChapterItemService {
      * @throws IllegalArgumentException when item's id < 1 or headline is empty String
      */
     @Override
+    @Transactional
     public ChapterItemEntity changeHeadline(ChapterItemEntity item, String headline) {
         log.debug("changing headline of" + item + " to " + headline);
         if (Objects.requireNonNull(item).getItemId() < 1 |
@@ -106,6 +111,7 @@ public class ChapterItemsServiceJpaImpl implements ChapterItemService {
      * @throws IllegalArgumentException if id < 1
      */
     @Override
+    @Transactional
     public boolean delete(ChapterItemEntity itemEntity) {
         log.debug("deleting item " + itemEntity);
         if (Objects.requireNonNull(itemEntity).getItemId() < 1) {

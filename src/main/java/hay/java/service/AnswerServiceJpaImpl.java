@@ -7,6 +7,7 @@ import hay.java.service.interfaces.AnswerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -46,6 +47,7 @@ public class AnswerServiceJpaImpl implements AnswerService {
      * @return Optional<AnswerEntity>
      */
     @Override
+    @Transactional(readOnly = true)
     public Optional<AnswerEntity> findById(Integer id) {
         log.debug("Searching answer by id " + id);
         if (id < 1) {
@@ -82,6 +84,7 @@ public class AnswerServiceJpaImpl implements AnswerService {
      * @throws IllegalArgumentException if id < 1
      */
     @Override
+    @Transactional
     public boolean delete(AnswerEntity answerEntity) {
         log.debug("deleting " + answerEntity);
         if (Objects.requireNonNull(answerEntity).getAnswerId() < 1) {
@@ -100,6 +103,7 @@ public class AnswerServiceJpaImpl implements AnswerService {
      * @return true if deleted.
      */
     @Override
+    @Transactional
     public boolean deleteAll() {
         log.debug("Deleting all answers.");
         answerRepo.deleteAll();
@@ -117,6 +121,7 @@ public class AnswerServiceJpaImpl implements AnswerService {
      * @throws IllegalArgumentException when answer id < 1 or text is empty
      */
     @Override
+    @Transactional
     public AnswerEntity changeText(AnswerEntity answer, String text) {
         log.debug("Changing text of " + answer + " to " + text);
         if (Objects.requireNonNull(answer).getAnswerId() < 1 | Objects.requireNonNull(text).isEmpty()) {
@@ -140,6 +145,7 @@ public class AnswerServiceJpaImpl implements AnswerService {
      * @throws IllegalArgumentException when answer id < 1 or text is empty
      */
     @Override
+    @Transactional
     public AnswerEntity changeCode(AnswerEntity answer, String code) {
         log.debug("Changing code of " + answer + " to " + code);
         if (Objects.requireNonNull(answer).getAnswerId() < 1 | Objects.requireNonNull(code).isEmpty()
@@ -162,6 +168,7 @@ public class AnswerServiceJpaImpl implements AnswerService {
      * @return saved AnswerEntity
      */
     @Override
+    @Transactional
     public AnswerEntity changeAccuracy(AnswerEntity answer, boolean accuracy) {
         log.debug("changing accuracy of " + answer + " to " + accuracy);
         if (Objects.requireNonNull(answer).getAnswerId() < 1) {

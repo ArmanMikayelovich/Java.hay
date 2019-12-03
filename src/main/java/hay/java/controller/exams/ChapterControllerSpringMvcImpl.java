@@ -9,6 +9,7 @@ import hay.java.service.interfaces.ChapterService;
 import hay.java.service.interfaces.TopicService;
 import hay.java.service.util.ErrorObject;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
@@ -220,7 +221,8 @@ public class ChapterControllerSpringMvcImpl implements ChapterController {
      * @see ErrorObject
      */
     @Override
-    @RequestMapping(value = "/update", method = RequestMethod.PUT, produces = "application/json")
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public Object changeChapterName(ChapterDto chapter, HttpServletResponse response) {
         int chapterId = chapter.getChapterId();
         if (chapterId < 1) {

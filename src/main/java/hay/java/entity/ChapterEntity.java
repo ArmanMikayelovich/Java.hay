@@ -12,9 +12,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "chapters", /*schema = "oracle_exams",*/
         indexes = {
-                @Index(name = "chapters_chapter_id_uindex",
+                @Index(name = "chapters_id_IDX",
                         unique = true,
-                        columnList = "chapter_id")
+                        columnList = "chapter_id"),
+                @Index(name = "chapters_topic_id_IDX",
+                        unique = true,
+                        columnList = "topic_id"),
 
         })
 @Data
@@ -37,10 +40,12 @@ public class ChapterEntity {
     @JoinColumn(name = "topic_id", referencedColumnName = "topic_id", nullable = false)
     private TopicEntity topicEntity;
 
-    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true, fetch = FetchType.LAZY,
+            cascade = {CascadeType.REMOVE, CascadeType.PERSIST})
     private List<ChapterItemEntity> chapterItemList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "chapterEntity", orphanRemoval = true, fetch = FetchType.LAZY,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<QuestionEntity> questionEntityList = new ArrayList<>();
 
     @Override
@@ -51,7 +56,7 @@ public class ChapterEntity {
         return getChapterId() == that.getChapterId() &&
                 Objects.equals(getChapterName(), that.getChapterName()) &&
                 getTopicEntity() == null && that.getTopicEntity() == null ||
-                getTopicEntity().getTopicId() == getTopicEntity().getTopicId() &&
+                getTopicEntity().getTopicId() == that.getTopicEntity().getTopicId() &&
                         Objects.equals(getChapterItemList(), that.getChapterItemList()) &&
                         Objects.equals(getQuestionEntityList(), that.getQuestionEntityList());
     }

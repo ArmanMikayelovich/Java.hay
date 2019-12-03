@@ -6,6 +6,7 @@ import hay.java.service.interfaces.ClarificationService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -29,6 +30,7 @@ public class ClarificationServiceJpaImpl implements ClarificationService {
      * @throws IllegalArgumentException when clarificationText is empty
      */
     @Override
+    @Transactional
     public ClarificationEntity save(ClarificationEntity clarificationEntity) {
         log.debug("saving clarification " + clarificationEntity);
         if (Objects.requireNonNull(clarificationEntity).getClarificationText().isEmpty()) {
@@ -50,6 +52,7 @@ public class ClarificationServiceJpaImpl implements ClarificationService {
      * @throws IllegalArgumentException when id < 1.
      */
     @Override
+    @Transactional
     public Optional<ClarificationEntity> findOneById(Integer id) {
         log.debug("Searching Clarification by id " + id);
         if (id < 1) {
@@ -76,6 +79,7 @@ public class ClarificationServiceJpaImpl implements ClarificationService {
      * @throws IllegalArgumentException when clarification id < 1 or text is empty
      */
     @Override
+    @Transactional
     public ClarificationEntity changeText(ClarificationEntity clarificationEntity, String text) {
         log.debug("Changing " + clarificationEntity + "Text to " + text);
         if (Objects.requireNonNull(clarificationEntity).getClarificationId() < 1 |
@@ -98,6 +102,7 @@ public class ClarificationServiceJpaImpl implements ClarificationService {
      * @throws IllegalArgumentException when id < 1
      */
     @Override
+    @Transactional
     public boolean deleteById(Integer id) {
         log.debug("Delete clarification by id");
         if (id < 1) {
@@ -119,6 +124,7 @@ public class ClarificationServiceJpaImpl implements ClarificationService {
      * @throws IllegalArgumentException when id < 1
      */
     @Override
+    @Transactional
     public boolean delete(ClarificationEntity clarificationEntity) {
         log.debug("Deleting clarification" + clarificationEntity);
         if (Objects.requireNonNull(clarificationEntity).getClarificationId() < 1) {
@@ -133,6 +139,7 @@ public class ClarificationServiceJpaImpl implements ClarificationService {
     }
 
     @Override
+    @Transactional
     public boolean deleteAll() {
         log.debug("Deleting all Clarifications");
         clarificationRepo.deleteAll();

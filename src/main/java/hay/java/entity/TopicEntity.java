@@ -12,7 +12,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "topics", /*schema = "oracle_exams",*/
         indexes = {
-                @Index(name = "topics_topic_id_uindex",
+                @Index(name = "topic_id_IDX",
                         unique = true,
                         columnList = "topic_id")
 
@@ -32,10 +32,11 @@ public class TopicEntity {
     private int topicId;
 
 
-    @Column(name = "topic_name", length = 256, nullable = false)
+    @Column(name = "topic_name", length = 256, nullable = false,unique = true)
     private String topicName;
 
-    @OneToMany(mappedBy = "topicEntity", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY   , orphanRemoval = true)
+    @OneToMany(mappedBy = "topicEntity", fetch = FetchType.LAZY, orphanRemoval = true
+            , cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<ChapterEntity> chapterEntityList = new ArrayList<>();
 
 

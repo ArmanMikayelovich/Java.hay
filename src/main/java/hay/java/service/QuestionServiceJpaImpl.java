@@ -11,6 +11,7 @@ import hay.java.service.interfaces.QuestionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @throws IllegalArgumentException when mandatory not met
      */
     @Override
+    @Transactional
     public boolean delete(QuestionEntity question) {
         log.debug("Deleting question " + question);
         if (Objects.requireNonNull(question).getQuestionId() < 1) {
@@ -62,6 +64,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @throws IllegalArgumentException when mandatory not met
      */
     @Override
+    @Transactional
     public Optional<QuestionEntity> findById(int id) {
         log.debug("Searching Question with id" + id);
         if (id < 1) {
@@ -86,6 +89,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @throws NullPointerException when one of arguments is null.
      */
     @Override
+    @Transactional
     public QuestionEntity save(QuestionEntity question) {
         log.debug("Saving question " + question);
         if (Objects.requireNonNull(question).getQuestionText().isEmpty()) {
@@ -108,6 +112,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @throws NullPointerException     when one of arguments is null.
      */
     @Override
+    @Transactional
     public QuestionEntity changeText(QuestionEntity question, String text) {
         log.debug("Changing text of " + question);
         if (Objects.requireNonNull(question).getQuestionId() < 1 | Objects.requireNonNull(text).isEmpty()) {
@@ -132,6 +137,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @throws NullPointerException     when one of arguments is null.
      */
     @Override
+    @Transactional
     public QuestionEntity changeCode(QuestionEntity question, String code) {
         log.debug("changing code of " + question + " to " + code);
         if (Objects.requireNonNull(question).getQuestionId() < 1 | Objects.requireNonNull(code).isEmpty()) {
@@ -159,6 +165,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @throws NullPointerException     when one of arguments is null
      */
     @Override
+    @Transactional
     public QuestionEntity addAnswer(QuestionEntity question, AnswerEntity answer) {
         log.debug("Adding " + answer + " to " + question);
         if (Objects.requireNonNull(question).getQuestionId() < 1 |
@@ -189,6 +196,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @throws NullPointerException     when one of arguments is null
      */
     @Override
+    @Transactional
     public QuestionEntity deleteAnswer(QuestionEntity question, AnswerEntity answer) {
         log.debug("deleting " + answer + " from " + question);
         if (Objects.requireNonNull(question).getQuestionId() < 1 |
@@ -214,6 +222,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @throws NullPointerException     when one of arguments is null
      */
     @Override
+    @Transactional
     public QuestionEntity deleteAllAnswer(QuestionEntity question) {
         log.debug("deleting all answers from " + question);
         if (Objects.requireNonNull(question).getQuestionId() < 1) {
@@ -237,6 +246,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
      * @return saved QuestionEntity
      */
     @Override
+    @Transactional
     public QuestionEntity changeClarification(QuestionEntity question, ClarificationEntity clarification) {
         log.debug("Changing clarification of " + question + " to " + clarification);
         if (Objects.requireNonNull(question).getQuestionId() < 1 |

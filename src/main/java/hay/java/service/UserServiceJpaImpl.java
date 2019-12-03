@@ -7,11 +7,13 @@ import hay.java.service.interfaces.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.util.Optional;
 
 @Service
+@Transactional(readOnly = true)
 public class UserServiceJpaImpl implements UserService {
     private static final Logger log = LogManager.getLogger(UserServiceJpaImpl.class);
 
@@ -21,8 +23,15 @@ public class UserServiceJpaImpl implements UserService {
         this.userRepo = userRepo;
     }
 
+    public UserDto findById(Long userId) {
+        return null;
+
+    }
+
+
     @Override
-    public UserEntity register(UserDto user, String password) {
+    @Transactional
+    public UserDto register(UserDto user, String password) {
         log.debug("user registration" + user + " password " + password);
         UserEntity entity = new UserEntity();
         entity.setDateOfBirth(Date.valueOf(user.getDateOfBirth()));
@@ -32,11 +41,12 @@ public class UserServiceJpaImpl implements UserService {
         entity.setPassword(password);
         entity.setDateOfBirth(Date.valueOf(user.getDateOfBirth()));
         UserEntity saved = userRepo.save(entity);
-        log.debug("registration completed" + entity);
-        return saved;
+        log.debug("registration completed. " + entity);
+        return UserDto.toDto(saved);
     }
 
     @Override
+    @Transactional
     public boolean update(UserDto user) {
         Optional<UserEntity> byId = userRepo.findById(user.getId());
         if (byId.isPresent()) {
@@ -57,6 +67,7 @@ public class UserServiceJpaImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public boolean delete(UserDto user) {
         Optional<UserEntity> byId = userRepo.findById(user.getId());
         if (byId.isPresent()) {
@@ -67,6 +78,7 @@ public class UserServiceJpaImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public boolean changePassword(UserDto user, String password) {
         Optional<UserEntity> byId = userRepo.findById(user.getId());
         if (byId.isPresent()) {

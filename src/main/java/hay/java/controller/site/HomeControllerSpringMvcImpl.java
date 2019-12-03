@@ -1,6 +1,7 @@
 package hay.java.controller.site;
 
 import hay.java.controller.site.interfaces.HomeController;
+import hay.java.entity.UserEntity;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class HomeControllerSpringMvcImpl implements HomeController {
     @RequestMapping(value = "",method = RequestMethod.GET,produces = MediaType.TEXT_HTML_VALUE)
     public ModelAndView getHomePage(HttpServletResponse response) {
         ModelAndView model = new ModelAndView("test");
+        model.addObject("username",new UserEntity());
         return model;
     }
 

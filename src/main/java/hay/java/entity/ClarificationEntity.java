@@ -10,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "clarification", /*schema = "oracle_exams",*/
         indexes = {
-                @Index(name = "clarification_question_id_uindex",
+                @Index(name = "clarification_question_id_IDX",
                         unique = true,
                         columnList = "question_id")
         })

@@ -11,6 +11,7 @@ import hay.java.service.interfaces.QuestionService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws NullPointerException
      */
     @Override
+    @Transactional
     public ChapterEntity save(ChapterEntity chapter) {
         log.debug("saving " + chapter);
         if (Objects.requireNonNull(chapter).getChapterName().isEmpty()) {
@@ -61,6 +63,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws NullPointerException
      */
     @Override
+    @Transactional
     public boolean delete(ChapterEntity chapterEntity) {
         log.debug("deleting" + chapterEntity);
         if (chapterEntity == null) {
@@ -82,6 +85,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws NullPointerException
      */
     @Override
+    @Transactional
     public ChapterEntity changeName(ChapterEntity chapter, String name) {
         log.debug("Changing name of " + chapter + "to " + name);
         if (Objects.requireNonNull(chapter).getChapterId() < 1 || Objects.requireNonNull(name).isEmpty()) {
@@ -105,6 +109,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws IllegalArgumentException
      */
     @Override
+    @Transactional
     public Optional<ChapterEntity> findById(Integer id) {
         if (id < 1) {
             IllegalArgumentException exception = new IllegalArgumentException("id must be > 0 || id = " + id);
@@ -127,6 +132,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @return All chapterEntitiyes from DB.
      */
     @Override
+    @Transactional(readOnly = true)
     public List<ChapterEntity> findAll() {
         log.debug("requested all chapters.WHY?:)");
         return chapterRepo.findAll();
@@ -142,6 +148,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws NullPointerException
      */
     @Override
+    @Transactional
     public ChapterEntity addChapterItem(ChapterEntity chapter, ChapterItemEntity item) {
         log.debug("Adding " + item + " to " + chapter);
         if (Objects.requireNonNull(chapter).getChapterId() < 1 | Objects.requireNonNull(item).getHeadline().isEmpty()) {
@@ -168,6 +175,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws IllegalArgumentException
      */
     @Override
+    @Transactional
     public ChapterEntity deleteChapterItem(ChapterEntity chapter, ChapterItemEntity item) {
         log.debug("Deleting " + item + "from " + chapter);
         if (Objects.requireNonNull(chapter).getChapterId() < 1 | Objects.requireNonNull(item).getHeadline().isEmpty()) {
@@ -188,6 +196,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @return ChapterEntity with 0 items
      */
     @Override
+    @Transactional
     public ChapterEntity deleteAllChapterItems(ChapterEntity chapter) {
 
         log.debug("deleting all item from " + chapter);
@@ -214,6 +223,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws NullPointerException
      */
     @Override
+    @Transactional
     public ChapterEntity addQuestion(ChapterEntity chapter, QuestionEntity question) {
         log.debug("adding " + question + " to " + chapter);
         if (Objects.requireNonNull(chapter).getChapterId() < 1 | Objects.requireNonNull(question).getQuestionText().isEmpty()) {
@@ -240,6 +250,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws IllegalArgumentException
      */
     @Override
+    @Transactional
     public ChapterEntity deleteQuestion(ChapterEntity chapter, QuestionEntity question) {
         log.debug("removing " + question + "from " + chapter);
         if (Objects.requireNonNull(chapter).getChapterId() < 1 | Objects.requireNonNull(question).getQuestionId() < 0
@@ -264,6 +275,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
      * @throws IllegalArgumentException
      */
     @Override
+    @Transactional
     public ChapterEntity deleteAllQuestions(ChapterEntity chapter) {
         log.debug("deleting all items from " + chapter);
         if (Objects.requireNonNull(chapter).getChapterId() < 1) {
