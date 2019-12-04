@@ -13,10 +13,10 @@ import javax.persistence.*;
 })
 @Data
 @NoArgsConstructor
-public class UserTestAnswers {
+public class UserQuestionAnswersEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

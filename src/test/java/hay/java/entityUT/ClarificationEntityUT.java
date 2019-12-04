@@ -19,14 +19,14 @@ public class ClarificationEntityUT {
         clarificationEntity.setClarificationText("lorem ipsum");
         clarificationEntity.setClarificationId(1);
         questionEntity = new QuestionEntity();
-        questionEntity.setQuestionId(1);
+        questionEntity.setId(1);
         clarificationEntity.setQuestionEntity(questionEntity);
     }
 
     @Test
     public void ClarificationEntityToDto() {
         ClarificationDto clarificationDto = new ClarificationDto(clarificationEntity);
-        assertEquals(clarificationDto.getQuestionId(), clarificationEntity.getQuestionEntity().getQuestionId());
+        assertEquals(clarificationDto.getQuestionId(), clarificationEntity.getQuestionEntity().getId());
         assertEquals(clarificationDto.getText(), clarificationEntity.getClarificationText());
     }
 
@@ -40,7 +40,7 @@ public class ClarificationEntityUT {
         ClarificationEntity clarificationEntity = new ClarificationEntity(clarificationDto);
         clarificationEntity.setQuestionEntity(questionEntity);
 
-        assertEquals(clarificationEntity.getQuestionEntity().getQuestionId(), clarificationDto.getQuestionId());
+        assertEquals(clarificationEntity.getQuestionEntity().getId(), clarificationDto.getQuestionId());
         assertEquals(clarificationEntity.getClarificationId(), clarificationDto.getId());
         assertEquals(clarificationEntity.getClarificationText(), clarificationDto.getText());
     }

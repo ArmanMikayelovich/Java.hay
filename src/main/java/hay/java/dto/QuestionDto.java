@@ -1,10 +1,11 @@
 package hay.java.dto;
 
-import hay.java.entity.QuestionEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
@@ -12,28 +13,13 @@ import lombok.RequiredArgsConstructor;
 public class QuestionDto {
     private int id;
 
-    @NonNull
+    @NotEmpty(message = "question text is empty")
     private String questionText;
-    @NonNull
+    @NotEmpty(message = "question code is empty")
     private String questionCode;
 
-    @NonNull
-    private int chapterId;
+    @Min(value = 0, message = "chapter id should be greater than 0")
+    private Long chapterId;
 
-
-    public QuestionDto(QuestionEntity question) {
-        setId(question.getQuestionId());
-        setQuestionText(question.getQuestionText());
-        setQuestionCode(question.getQuestionCode());
-        setChapterId(question.getChapterEntity().getChapterId());
-    }
-
-    public QuestionDto set(QuestionEntity question) {
-        setId(question.getQuestionId());
-        setQuestionText(question.getQuestionText());
-        setQuestionCode(question.getQuestionCode());
-        setChapterId(question.getChapterEntity().getChapterId());
-        return this;
-    }
 
 }

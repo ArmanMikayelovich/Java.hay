@@ -14,7 +14,7 @@ import java.util.Date;
         @Index(name = "user_id_IDX", columnList = "user_id"),
         @Index(name = "user_chapter_IDX", columnList = "user_id,chapter_id")
 })
-public class TestResults {
+public class TestResultsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,11 +29,11 @@ public class TestResults {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ChapterEntity chapterEntity;
 
-    @CreationTimestamp()
+    @CreationTimestamp
     @Column(name = "start_time", updatable = false, nullable = false)
     private Date startTime;
 
-    @CreationTimestamp()
+    @CreationTimestamp
     @Column(name = "end_time", updatable = false, nullable = false)
     private Date endTime;
 

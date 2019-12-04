@@ -1,31 +1,23 @@
 package hay.java.dto;
 
-import hay.java.entity.ChapterEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class ChapterDto {
-    private int chapterId;
-    @NonNull
+    @Min(value = 0, message = "id should be greater than 0")
+    private Long chapterId;
+    @NotEmpty(message = "Chapter name is empty")
     private String chapterName;
-    @NonNull
-    private int topicId;
 
-    public ChapterDto(ChapterEntity chapter) {
-        setChapterId(chapter.getChapterId());
-        setChapterName(chapter.getChapterName());
-        setTopicId(chapter.getTopicEntity().getTopicId());
-    }
+    @Min(value = 0, message = "Topic id shoudl be greater than 0")
+    private Long topicId;
 
-    public ChapterDto set(ChapterEntity chapter) {
-        setChapterId(chapter.getChapterId());
-        setChapterName(chapter.getChapterName());
-        setTopicId(chapter.getTopicEntity().getTopicId());
-        return this;
-    }
+
 }

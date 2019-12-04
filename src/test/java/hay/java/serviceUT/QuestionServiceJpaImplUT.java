@@ -46,7 +46,7 @@ public class QuestionServiceJpaImplUT {
     @Test
     public void deleteWithNormalArgument() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.delete(question);
         verify(questionRepo, timeout(1)).delete(any());
     }
@@ -99,14 +99,14 @@ public class QuestionServiceJpaImplUT {
     @Test(expected = IllegalArgumentException.class)
     public void changeTextIllegalArguments2() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.changeText(question, "");
     }
 
     @Test
     public void changeTextNormalArguments() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.changeText(question, "text");
     }
 
@@ -129,14 +129,14 @@ public class QuestionServiceJpaImplUT {
     @Test(expected = IllegalArgumentException.class)
     public void changeCodeWithIllegalArgument2() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.changeCode(question, "");
     }
 
     @Test
     public void changeCodeWithNormalArguments() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.changeCode(question, "text");
         verify(questionRepo, times(1)).save(any());
     }
@@ -159,14 +159,14 @@ public class QuestionServiceJpaImplUT {
     @Test(expected = NullPointerException.class)
     public void addAnswerWithIllegalArguments2() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.addAnswer(question, new AnswerEntity());
     }
 
     @Test(expected = NullPointerException.class)
     public void addAnswerWithIllegalArguments3() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         AnswerEntity answer = new AnswerEntity();
         answer.setAnswerCode("");
         questionService.addAnswer(question, answer);
@@ -175,7 +175,7 @@ public class QuestionServiceJpaImplUT {
     @Test(expected = IllegalArgumentException.class)
     public void addAnswerWithIllegalArguments4() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         AnswerEntity answer = new AnswerEntity();
         answer.setAnswerCode("");
         answer.setAnswerText("");
@@ -185,7 +185,7 @@ public class QuestionServiceJpaImplUT {
     @Test(expected = IllegalArgumentException.class)
     public void addAnswerWithIllegalArguments5() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         AnswerEntity answer = new AnswerEntity();
         answer.setAnswerCode("A");
         answer.setAnswerText("");
@@ -195,7 +195,7 @@ public class QuestionServiceJpaImplUT {
     @Test(expected = IllegalArgumentException.class)
     public void addAnswerWithIllegalArguments6() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         AnswerEntity answer = new AnswerEntity();
         answer.setAnswerCode("AA");
         answer.setAnswerText("text");
@@ -205,7 +205,7 @@ public class QuestionServiceJpaImplUT {
     @Test
     public void addAnswerWithNormalArguments() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         AnswerEntity answer = new AnswerEntity();
         answer.setAnswerCode("B");
         answer.setAnswerText("text");
@@ -233,14 +233,14 @@ public class QuestionServiceJpaImplUT {
     @Test(expected = IllegalArgumentException.class)
     public void deleteAnswerWithIllegalArguments2() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.deleteAnswer(question, new AnswerEntity());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void deleteAnswerWithIllegalArguments3() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         AnswerEntity answer = new AnswerEntity();
         answer.setAnswerId(1);
         questionService.deleteAnswer(question, answer);
@@ -249,7 +249,7 @@ public class QuestionServiceJpaImplUT {
     @Test
     public void deleteAnswerWithNormalArguments() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         AnswerEntity answer = new AnswerEntity();
         answer.setAnswerId(1);
         answer.setQuestionEntity(question);
@@ -271,7 +271,7 @@ public class QuestionServiceJpaImplUT {
     @Test
     public void deleteAllAnswerWithNormalArguments() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.deleteAllAnswer(question);
     }
 
@@ -293,14 +293,14 @@ public class QuestionServiceJpaImplUT {
     @Test(expected = NullPointerException.class)
     public void changeClarificationWithIllegalArguments3() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         questionService.changeClarification(question, new ClarificationEntity());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void changeClarificationWithIllegalArguments4() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         ClarificationEntity clarification = new ClarificationEntity();
         clarification.setClarificationText("");
         questionService.changeClarification(question, clarification);
@@ -309,7 +309,7 @@ public class QuestionServiceJpaImplUT {
     @Test
     public void changeClarificationWithNormalArguments() {
         QuestionEntity question = new QuestionEntity();
-        question.setQuestionId(1);
+        question.setId(1);
         ClarificationEntity clarification = new ClarificationEntity();
         clarification.setClarificationText("text");
         questionService.changeClarification(question, clarification);

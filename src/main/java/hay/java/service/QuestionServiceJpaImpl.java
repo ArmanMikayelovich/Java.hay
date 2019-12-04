@@ -46,13 +46,13 @@ public class QuestionServiceJpaImpl implements QuestionService {
     @Transactional
     public boolean delete(QuestionEntity question) {
         log.debug("Deleting question " + question);
-        if (Objects.requireNonNull(question).getQuestionId() < 1) {
+        if (Objects.requireNonNull(question).getId() < 1) {
             IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(question));
             log.error(exception);
             throw exception;
         }
         questionRepo.delete(question);
-        log.debug("Question with id - " + question.getQuestionId() + "has been deleted");
+        log.debug("Question with id - " + question.getId() + "has been deleted");
         return true;
     }
 
@@ -115,7 +115,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
     @Transactional
     public QuestionEntity changeText(QuestionEntity question, String text) {
         log.debug("Changing text of " + question);
-        if (Objects.requireNonNull(question).getQuestionId() < 1 | Objects.requireNonNull(text).isEmpty()) {
+        if (Objects.requireNonNull(question).getId() < 1 | Objects.requireNonNull(text).isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(question + "\t" + text);
             log.debug(exception);
             throw exception;
@@ -140,7 +140,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
     @Transactional
     public QuestionEntity changeCode(QuestionEntity question, String code) {
         log.debug("changing code of " + question + " to " + code);
-        if (Objects.requireNonNull(question).getQuestionId() < 1 | Objects.requireNonNull(code).isEmpty()) {
+        if (Objects.requireNonNull(question).getId() < 1 | Objects.requireNonNull(code).isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(question + "\t" + code);
             log.debug(exception);
             throw exception;
@@ -168,7 +168,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
     @Transactional
     public QuestionEntity addAnswer(QuestionEntity question, AnswerEntity answer) {
         log.debug("Adding " + answer + " to " + question);
-        if (Objects.requireNonNull(question).getQuestionId() < 1 |
+        if (Objects.requireNonNull(question).getId() < 1 |
                 Objects.requireNonNull(answer).getAnswerCode().isEmpty() |
                 Objects.requireNonNull(answer).getAnswerCode().length() > 1 |
                 Objects.requireNonNull(answer).getAnswerText().isEmpty()) {
@@ -199,7 +199,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
     @Transactional
     public QuestionEntity deleteAnswer(QuestionEntity question, AnswerEntity answer) {
         log.debug("deleting " + answer + " from " + question);
-        if (Objects.requireNonNull(question).getQuestionId() < 1 |
+        if (Objects.requireNonNull(question).getId() < 1 |
                 Objects.requireNonNull(answer).getAnswerId() < 1 |
                 !question.equals(answer.getQuestionEntity())) {
             IllegalArgumentException exception = new IllegalArgumentException(question + "\t" + answer);
@@ -225,7 +225,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
     @Transactional
     public QuestionEntity deleteAllAnswer(QuestionEntity question) {
         log.debug("deleting all answers from " + question);
-        if (Objects.requireNonNull(question).getQuestionId() < 1) {
+        if (Objects.requireNonNull(question).getId() < 1) {
             IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(question));
             log.debug(exception);
             throw exception;
@@ -249,7 +249,7 @@ public class QuestionServiceJpaImpl implements QuestionService {
     @Transactional
     public QuestionEntity changeClarification(QuestionEntity question, ClarificationEntity clarification) {
         log.debug("Changing clarification of " + question + " to " + clarification);
-        if (Objects.requireNonNull(question).getQuestionId() < 1 |
+        if (Objects.requireNonNull(question).getId() < 1 |
                 Objects.requireNonNull(clarification).getClarificationText().isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(question + " " + clarification);
             log.error(exception);

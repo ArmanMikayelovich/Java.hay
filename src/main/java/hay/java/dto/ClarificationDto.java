@@ -1,25 +1,22 @@
 package hay.java.dto;
 
-import hay.java.entity.ClarificationEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class ClarificationDto {
-    private int id;
-    @NonNull
+    @Min(value = 0, message = "Id should be greater than 0.")
+    private Long id;
+    @NotEmpty(message = "Clarification text is empty.")
     private String text;
 
-    @NonNull
-    private int questionId;
+    @Min(value = 0, message = "Question id i empty.")
+    private Long questionId;
 
-    public ClarificationDto(ClarificationEntity clarification) {
-        setId(clarification.getClarificationId());
-        setText(clarification.getClarificationText());
-        setQuestionId(clarification.getQuestionEntity().getQuestionId());
-    }
 }

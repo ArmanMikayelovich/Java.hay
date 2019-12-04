@@ -36,7 +36,7 @@ public class QuestionEntityUT {
     public void QuestionEntityTo() {
         QuestionDto questionDto = new QuestionDto(questionEntity1);
         assertEquals(questionDto.getChapterId(), questionEntity1.getChapterEntity().getChapterId());
-        assertEquals(questionDto.getId(), questionEntity1.getQuestionId());
+        assertEquals(questionDto.getId(), questionEntity1.getId());
         assertEquals(questionDto.getQuestionCode(), questionEntity1.getQuestionCode());
         assertEquals(questionDto.getQuestionText(), questionEntity1.getQuestionText());
     }
@@ -50,8 +50,8 @@ public class QuestionEntityUT {
         questionDto.setId(1);
         QuestionEntity questionEntity = new QuestionEntity(questionDto);
         questionEntity.setChapterEntity(chapterEntity1);
-        questionEntity.setQuestionId(1);
-        assertEquals(questionDto.getId(), questionEntity.getQuestionId());
+        questionEntity.setId(1);
+        assertEquals(questionDto.getId(), questionEntity.getId());
         assertEquals(questionDto.getQuestionText(), questionEntity.getQuestionText());
         assertEquals(questionDto.getQuestionCode(), questionEntity.getQuestionCode());
         assertEquals(questionDto.getChapterId(), questionEntity.getChapterEntity().getChapterId());

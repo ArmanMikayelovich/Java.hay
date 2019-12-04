@@ -1,32 +1,22 @@
 package hay.java.dto;
 
-import hay.java.entity.ChapterItemEntity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class ChapterItemDto {
+    @Min(value = 0, message = "Id is empty.")
+    private Long id;
 
-    private int id;
-    @NonNull
+    @NotEmpty(message = "Headline is empty.")
     private String headline;
-    @NonNull
-    private int chapterId;
 
-    public ChapterItemDto(ChapterItemEntity item) {
-        setId(item.getItemId());
-        setHeadline(item.getHeadline());
-        setChapterId(item.getChapterEntity().getChapterId());
-    }
-
-    public ChapterItemDto set(ChapterItemEntity item) {
-        setId(item.getItemId());
-        setHeadline(item.getHeadline());
-        setChapterId(item.getChapterEntity().getChapterId());
-        return this;
-    }
+    @Min(value = 0, message = "Chapter id is empty.")
+    private Long chapterId;
 }

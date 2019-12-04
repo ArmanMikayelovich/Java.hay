@@ -44,7 +44,7 @@ public class UserTestAnswersServiceJpaImpl implements UserTestAnswersService {
         Optional<AnswerEntity> answerById = answerService.findById(answer.getId());
         if (!answerById.isPresent()) return false;
 
-        UserTestAnswers test = new UserTestAnswers();
+        UserQuestionAnswersEntity test = new UserQuestionAnswersEntity();
         test.setUserEntity(userById.get());
         test.setQuestionEntity(questionById.get());
         test.setChapterEntity(questionById.get().getChapterEntity());
@@ -60,7 +60,7 @@ public class UserTestAnswersServiceJpaImpl implements UserTestAnswersService {
         if (!userById.isPresent()) return Optional.empty();
         Optional<QuestionEntity> questionById = questionService.findById(question.getId());
         if (!questionById.isPresent()) return Optional.empty();
-        Optional<UserTestAnswers> byUserEntityAndQuestionEntity =
+        Optional<UserQuestionAnswersEntity> byUserEntityAndQuestionEntity =
                 testRepo.findByUserEntityAndQuestionEntity(userById.get(), questionById.get());
         if (byUserEntityAndQuestionEntity.isPresent()) {
             AnswerDto answerDto = answerService.toDto(byUserEntityAndQuestionEntity.get().getAnswerEntity());
@@ -76,7 +76,7 @@ public class UserTestAnswersServiceJpaImpl implements UserTestAnswersService {
         if (!userById.isPresent()) return Collections.emptyMap();
         Optional<ChapterEntity> chapterById = chapterService.findById(chapter.getChapterId());
         if (!chapterById.isPresent()) return Collections.emptyMap();
-        List<UserTestAnswers> list = testRepo.findAllByUserEntityAndChapterEntity(userById.get(), chapterById.get());
+        List<UserQuestionAnswersEntity> list = testRepo.findAllByUserEntityAndChapterEntity(userById.get(), chapterById.get());
         if (!list.isEmpty()) {
             Map<QuestionDto, AnswerDto> map = new HashMap<>();
             list.forEach(x -> map.put(questionService.toDto(x.getQuestionEntity()),

@@ -2,7 +2,9 @@ package hay.java.entity;
 
 import hay.java.dto.ClarificationDto;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -15,7 +17,6 @@ import java.util.Objects;
                         columnList = "question_id")
         })
 @Data
-@NoArgsConstructor
 public class ClarificationEntity {
     public ClarificationEntity(ClarificationDto clarificationDto) {
         setClarificationText(clarificationDto.getText());
@@ -23,38 +24,17 @@ public class ClarificationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "clarification_id", nullable = false, unique = true, updatable = false)
-    private int clarificationId;
+    @Column(name = "id", nullable = false, unique = true, updatable = false)
+    private Long id;
 
     @Column(name = "clarification_text", length = 1000, nullable = false)
     private String clarificationText;
 
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id", referencedColumnName = "question_id", nullable = false)
     private QuestionEntity questionEntity;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof ClarificationEntity)) return false;
-        ClarificationEntity that = (ClarificationEntity) o;
-        return getClarificationId() == that.getClarificationId() &&
-                getClarificationText().equals(that.getClarificationText()) &&
-                getQuestionEntity() == null && that.getQuestionEntity() == null ||
-                getQuestionEntity().getQuestionId() == that.getQuestionEntity().getQuestionId();
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getClarificationId(), getClarificationText(), getQuestionEntity().getQuestionId());
-    }
-
-    @Override
-    public String toString() {
-        return "ClarificationEntity{" +
-                "clarificationId=" + clarificationId +
-                ", clarificationText='" + clarificationText + '\'' +
-                ", questionId=" + (questionEntity != null ? questionEntity.getQuestionId() : " null") +
-                '}';
-    }
 }

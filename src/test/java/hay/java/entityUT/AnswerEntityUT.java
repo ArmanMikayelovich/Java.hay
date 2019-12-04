@@ -20,7 +20,7 @@ public class AnswerEntityUT {
         chapterEntity.setChapterName("name");
 
         QuestionEntity questionEntity = new QuestionEntity();
-        questionEntity.setQuestionId(1);
+        questionEntity.setId(1);
         questionEntity.setQuestionCode("public static void main(String... args) {}");
         questionEntity.setQuestionText("it is true");
 
@@ -40,7 +40,7 @@ public class AnswerEntityUT {
 
         assertEquals(answerDto.getCode(), answerEntity.getAnswerCode());
         assertEquals(answerDto.getId(), answerEntity.getAnswerId());
-        assertEquals(answerDto.getQuestionId(), answerEntity.getQuestionEntity().getQuestionId());
+        assertEquals(answerDto.getQuestionId(), answerEntity.getQuestionEntity().getId());
         assertEquals(answerDto.getText(), answerEntity.getAnswerText());
     }
     @Test

@@ -11,15 +11,15 @@ import java.sql.Date;
 @Entity
 @Table(name = "users", indexes = {
         @Index(name = "user_email_IDX", columnList = "email"),
-        @Index(name = "user_id_IDX", columnList = "user_id"),
+        @Index(name = "user_id_IDX", columnList = "id"),
 })
 @Data
 @NoArgsConstructor
 public class UserEntity {
     @Id
-    @Column(name = "user_id", updatable = false)
+    @Column(name = "uid", updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;

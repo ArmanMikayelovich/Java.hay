@@ -12,11 +12,11 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     @Query(value = "select distinct user from UserEntity user " +
-            "where user.userId =:userId and user.isActive = true")
+            "where user.getId =:userId and user.isActive = true")
     Optional<UserEntity> findById(@Param("userId") Long userId);
 
     @Query(value = "update UserEntity user " +
             "set user.isActive = false " +
-            "where user.userId =:userId")
+            "where user.getId =:userId")
     void delete(@Param("userId") Long userId);
 }

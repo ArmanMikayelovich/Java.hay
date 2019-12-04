@@ -253,7 +253,7 @@ public class ChapterServiceJpaImpl implements ChapterService {
     @Transactional
     public ChapterEntity deleteQuestion(ChapterEntity chapter, QuestionEntity question) {
         log.debug("removing " + question + "from " + chapter);
-        if (Objects.requireNonNull(chapter).getChapterId() < 1 | Objects.requireNonNull(question).getQuestionId() < 0
+        if (Objects.requireNonNull(chapter).getChapterId() < 1 | Objects.requireNonNull(question).getId() < 0
                 | question.getChapterEntity().getChapterId() != chapter.getChapterId()) {
             IllegalArgumentException exception = new IllegalArgumentException(chapter + " " + question);
             log.error(exception);
