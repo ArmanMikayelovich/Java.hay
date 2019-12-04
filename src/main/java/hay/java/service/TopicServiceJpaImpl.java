@@ -103,13 +103,7 @@ public class TopicServiceJpaImpl implements TopicService {
     @Override
     @Transactional
     public TopicEntity changeName(TopicEntity topic, String name) {
-        log.debug(String.format("Changing name of topic%sto %s", topic, name));
-        if (Objects.requireNonNull(topic).getTopicId() < 1 | Objects.requireNonNull(name).isEmpty()) {
-            IllegalArgumentException exception = new IllegalArgumentException(topic + ", name  - " + name);
-            log.error(exception);
-            throw exception;
-        }
-
+        log.debug(String.format("Changing name of topic {0} | name {1}", topic, name));
         topic.setTopicName(name);
         TopicEntity saved = topicRepo.save(topic);
         log.debug(String.format("Successfully changed name of topic with id%d", topic.getTopicId()));

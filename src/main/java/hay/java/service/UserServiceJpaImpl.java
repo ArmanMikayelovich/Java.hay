@@ -1,15 +1,16 @@
 package hay.java.service;
 
+import hay.java.config.Mapper;
 import hay.java.dto.UserDto;
 import hay.java.entity.UserEntity;
 import hay.java.repository.UserRepository;
 import hay.java.service.interfaces.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.util.Optional;
 
 @Service
@@ -17,10 +18,15 @@ import java.util.Optional;
 public class UserServiceJpaImpl implements UserService {
     private static final Logger log = LogManager.getLogger(UserServiceJpaImpl.class);
 
-    private UserRepository userRepo;
+    private final UserRepository userRepository;
+    private final Mapper mapper;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserServiceJpaImpl(UserRepository userRepo) {
-        this.userRepo = userRepo;
+    public UserServiceJpaImpl(UserRepository userRepository, Mapper mapper,
+                              PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.mapper = mapper;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public UserDto findById(Long userId) {
@@ -31,47 +37,31 @@ public class UserServiceJpaImpl implements UserService {
 
     @Override
     @Transactional
-    public UserDto register(UserDto user, String password) {
-        log.debug("user registration" + user + " password " + password);
-        UserEntity entity = new UserEntity();
-        entity.setDateOfBirth(Date.valueOf(user.getDateOfBirth()));
-        entity.setEmail(user.getEmail());
-        entity.setFirstName(user.getFirstName());
-        entity.setLastName(user.getLastName());
-        entity.setPassword(password);
-        entity.setDateOfBirth(Date.valueOf(user.getDateOfBirth()));
-        UserEntity saved = userRepo.save(entity);
-        log.debug("registration completed. " + entity);
-        return UserDto.toDto(saved);
+    public UserDto register(UserDto user) {
+        log.debug("user registration {} ", user);
+        UserEntity userEntity = mapper.map(user, UserEntity.class);
+        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
+        userEntity = userRepository.save(userEntity);
+        log.debug("registration completed. {}", userEntity);
+        mapper.map(userEntity, user);
+        return user;
     }
 
     @Override
     @Transactional
-    public boolean update(UserDto user) {
-        Optional<UserEntity> byId = userRepo.findById(user.getId());
-        if (byId.isPresent()) {
-            UserEntity entity = byId.get();
-            if (!entity.getFirstName().equals(user.getFirstName())) {
-                entity.setFirstName(user.getFirstName());
-            }
-            if (!entity.getLastName().equals(user.getLastName())) {
-                entity.setLastName(user.getLastName());
-            }
-            if (!entity.getDateOfBirth().toString().equals(user.getDateOfBirth())) {
-                entity.setDateOfBirth(Date.valueOf(user.getDateOfBirth()));
-            }
-            userRepo.save(entity);
-            return true;
-        }
-        return false;
+    public UserDto update(UserDto user) {
+        UserEntity userEntity = mapper.map(user, UserEntity.class);
+        userRepository.save(userEntity);
+        mapper.map(userEntity, user);
+        return user;
     }
 
     @Override
     @Transactional
     public boolean delete(UserDto user) {
-        Optional<UserEntity> byId = userRepo.findById(user.getId());
+        Optional<UserEntity> byId = userRepository.findById(user.getId());
         if (byId.isPresent()) {
-            userRepo.delete(byId.get());
+            userRepository.delete(byId.get());
             return true;
         }
         return false;
@@ -80,12 +70,12 @@ public class UserServiceJpaImpl implements UserService {
     @Override
     @Transactional
     public boolean changePassword(UserDto user, String password) {
-        Optional<UserEntity> byId = userRepo.findById(user.getId());
+        Optional<UserEntity> byId = userRepository.findById(user.getId());
         if (byId.isPresent()) {
             UserEntity userEntity = byId.get();
             if (userEntity.getPassword().equals(user.getPassword())) {
                 userEntity.setPassword(password);
-                userRepo.saveAndFlush(userEntity);
+                userRepository.saveAndFlush(userEntity);
                 return true;
             }
         }
