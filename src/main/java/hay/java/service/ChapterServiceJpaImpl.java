@@ -43,8 +43,8 @@ public class ChapterServiceJpaImpl implements ChapterService {
      */
     @Override
     @Transactional
-    public ChapterEntity save(ChapterEntity chapter) {
-        log.debug("saving " + chapter);
+    public ChapterEntity save(ChapterDtoՆ) {
+        log.debug("saving {}" + chapter);
         if (Objects.requireNonNull(chapter).getChapterName().isEmpty()) {
             IllegalArgumentException exception = new IllegalArgumentException(Objects.toString(chapterRepo));
             log.error(exception);

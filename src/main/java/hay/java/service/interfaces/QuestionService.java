@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface QuestionService {
     boolean delete(QuestionEntity question);
 
-    Optional<QuestionEntity> findById(int id);
+    Optional<QuestionEntity> findById(Long id);
 
     QuestionEntity save(QuestionEntity question);
 

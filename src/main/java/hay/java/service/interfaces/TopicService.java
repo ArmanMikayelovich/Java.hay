@@ -1,34 +1,23 @@
 package hay.java.service.interfaces;
 
 import hay.java.dto.TopicDto;
-import hay.java.entity.ChapterEntity;
-import hay.java.entity.TopicEntity;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface TopicService {
-    TopicEntity save(TopicEntity topicEntity);
 
-    boolean deleteById(Integer id);
+    TopicDto save(TopicDto topicEntity);
 
-    boolean delete(TopicEntity topic);
+    void deleteById(Long id);
 
-    Optional<TopicEntity> find(int id);
+    TopicDto find(Long id);
 
-    TopicEntity changeName(TopicEntity topic, String name);
+    TopicDto changeName(Long id, String name);
 
-    TopicEntity addChapter(TopicEntity topic, ChapterEntity chapter);
 
-    TopicEntity deleteChapter(TopicEntity topic, ChapterEntity chapter);
+    Page<TopicDto> findAll(Pageable pageable);
 
-    List<TopicEntity> findAll();
 
-    TopicEntity deleteAllChapters(TopicEntity topicEntity);
+    void deleteAllTopics();
 
-    boolean deleteAllTopics();
-
-    TopicDto toDto(TopicEntity topic);
-
-    List<TopicDto> toDto(List<TopicEntity> topicList);
 }

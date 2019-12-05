@@ -5,8 +5,11 @@ import hay.java.dto.UserDto;
 import hay.java.entity.UserEntity;
 import hay.java.repository.UserRepository;
 import hay.java.service.interfaces.UserService;
+import hay.java.service.util.exception.UserNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,10 +33,17 @@ public class UserServiceJpaImpl implements UserService {
     }
 
     public UserDto findById(Long userId) {
-        return null;
-
+        UserEntity userEntity = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+        return mapper.map(userEntity, UserDto.class);
     }
 
+
+    @Override
+    public Page<UserDto> findUsersByName(String name, Pageable pageable) {
+        Page<UserEntity> userEntities =
+                userRepository.findAllByFirstNameContainsAndLastNameContains(name, name, pageable);
+        return userEntities.map(userEntity -> mapper.map(userEntity, UserDto.class));
+    }
 
     @Override
     @Transactional

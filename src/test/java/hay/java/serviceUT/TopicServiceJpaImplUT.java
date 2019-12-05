@@ -4,8 +4,8 @@ import hay.java.dto.TopicDto;
 import hay.java.entity.ChapterEntity;
 import hay.java.entity.TopicEntity;
 import hay.java.repository.TopicRepository;
-import hay.java.service.interfaces.ChapterService;
 import hay.java.service.TopicServiceJpaImpl;
+import hay.java.service.interfaces.ChapterService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +34,7 @@ public class TopicServiceJpaImplUT {
 
     @Before
     public void init() {
-        topicService = new TopicServiceJpaImpl(topicRepo, chapterService);
+        topicService = new TopicServiceJpaImpl(topicRepo, chapterService, mapper);
     }
 
     @Test(expected = IllegalArgumentException.class)

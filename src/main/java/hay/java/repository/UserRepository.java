@@ -1,6 +1,8 @@
 package hay.java.repository;
 
 import hay.java.entity.UserEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +21,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
             "set user.isActive = false " +
             "where user.getId =:userId")
     void delete(@Param("userId") Long userId);
+
+    Page<UserEntity> findAllByFirstNameContainsAndLastNameContains(String firstName, String lastName, Pageable pageable);
 }
